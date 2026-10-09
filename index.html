@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Jess Weng: computer scientist and business analyst.">
+<title>Jess Weng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+<style>
+/* Two pages in one file: the title page (#intro) and the climb (#tale). The climb opens at the seed at the bottom; scrolling up grows the vine toward the clouds, where the LinkedIn posts hang as scrolls. */
+:root{
+  --cream:#F3EDE1;
+  --paper:#FAF6EE;
+  --brown:#4A3628;
+  --brown-soft:#806654;
+  --sage:#8EA382;
+  --sage-deep:#5D7451;
+  --line:#DED4C3;
+  --parch:#EFE8DA;
+  --parch-edge:#DCD0BA;
+  --rod:#7A5438;
+  --rod-hi:#A47A57;
+  --rod-lo:#4F3423;
+  --soil:#5E4433;
+  --soil-deep:#4A3426;
+  --soil-ink:#F3E9D8;
+  --root:#8C6A4F;
+  --brick-a:#B5654A;
+  --brick-b:#A0563F;
+  --brick-c:#C47D60;
+  --wall-fade:.32;
+  --note:#FBF4DC;
+  --note-line:rgb(110 140 180/.2);
+  --pin:#B5473A;
+  --bear:#7A5438;
+  --bear-light:#C9A27E;
+  --bear-dark:#3A271B;
+  --lion:#C9964F;
+  --lion-light:#EBCD97;
+  --mane:#8A5A2B;
+  --parrot:#3D7CC9;
+  --parrot-dark:#2A5B9C;
+  --parrot-light:#9CC3EA;
+  --f-display:"Cinzel","Trajan Pro",Georgia,serif;
+  --f-body:"EB Garamond",Garamond,Georgia,"Times New Roman",serif;
+  --f-italic:"EB Garamond",Garamond,Georgia,serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --cream:#231B15;--paper:#2C231C;--brown:#EEE5D5;--brown-soft:#B9A893;
+  --sage:#A2B796;--sage-deep:#7F9A70;--line:#3E3329;
+  --parch:#36302A;--parch-edge:#4E453A;--rod:#8A6446;--rod-hi:#B08664;--rod-lo:#5A3D29;--soil:#171009;--soil-deep:#110B06;--soil-ink:#EEE5D5;--root:#6E5440;--brick-a:#9A5440;--brick-b:#7F4434;--brick-c:#A8664D;--wall-fade:.22;--note:#3A3426;--note-line:rgb(160 180 210/.12);--pin:#C0584A;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --cream:#231B15;--paper:#2C231C;--brown:#EEE5D5;--brown-soft:#B9A893;
+  --sage:#A2B796;--sage-deep:#7F9A70;--line:#3E3329;
+  --parch:#36302A;--parch-edge:#4E453A;--rod:#8A6446;--rod-hi:#B08664;--rod-lo:#5A3D29;--soil:#171009;--soil-deep:#110B06;--soil-ink:#EEE5D5;--root:#6E5440;--brick-a:#9A5440;--brick-b:#7F4434;--brick-c:#A8664D;--wall-fade:.22;--note:#3A3426;--note-line:rgb(160 180 210/.12);--pin:#C0584A;color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+img,svg{max-width:100%}
+[hidden]{display:none!important}
+body{background:var(--cream);color:var(--brown);font:400 1.2rem/1.6 var(--f-body);padding-inline:16px}
+/* ornamental rule: hairlines meeting at a small diamond */
+.rule{display:flex;align-items:center;gap:.8rem;color:var(--sage-deep);margin-block:1.6rem}
+.rule::before,.rule::after{content:"";flex:1;height:1px;background:var(--line)}
+.rule span{width:7px;height:7px;transform:rotate(45deg);border:1px solid currentColor}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--sage-deep);outline-offset:3px;border-radius:3px}
+.col{max-width:40rem;margin-inline:auto}
+h1,h2,h3{font-weight:400;text-wrap:balance;margin:0}
+.date{font:400 .72rem var(--f-display);letter-spacing:.16em;text-transform:uppercase;color:var(--sage-deep);font-variant-numeric:tabular-nums}
+
+.btn{display:inline-block;font:400 .75rem var(--f-display);letter-spacing:.16em;text-transform:uppercase;padding:.65rem 1.2rem;border-radius:2px;border:1px solid var(--sage-deep);background:transparent;color:var(--brown);text-decoration:none;cursor:pointer}
+.btn:hover,.btn.solid{background:var(--sage-deep);color:var(--paper)}
+.btn.solid:hover{background:var(--brown);border-color:var(--brown)}
+
+/* ---------- page 1: title page ---------- */
+.intro{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-block:3rem}
+.intro h1{font:400 clamp(2.8rem,11vw,5.6rem)/1.05 var(--f-display);letter-spacing:.04em;margin-block:.4rem 0}
+.intro p{margin:0 0 1rem;max-width:34rem}
+.intro .muted{color:var(--brown-soft)}
+.intro .next{align-self:flex-start;margin-top:1.4rem;padding:.85rem 1.6rem}
+.intro>:not(.wall){position:relative;z-index:1;transition:opacity .7s ease,transform .9s cubic-bezier(.5,0,.3,1),filter .7s}
+
+/* a faded brick wall broken open around the name; Next pushes the halves apart and zooms through the gap */
+.wall{position:fixed;top:0;bottom:0;width:min(34vw,440px);height:100%;z-index:0;opacity:var(--wall-fade);pointer-events:none;
+  transition:transform 1s cubic-bezier(.6,0,.3,1),opacity 1s ease}
+.wall.left{left:0}.wall.right{right:0}
+.wall .b1{fill:var(--brick-a)}.wall .b2{fill:var(--brick-b)}.wall .b3{fill:var(--brick-c)}
+body.step .wall.left{transform:translateX(-75%) scale(1.5);opacity:0}
+body.step .wall.right{transform:translateX(75%) scale(1.5);opacity:0}
+body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
+#tale.arrive{animation:arrive .9s ease both}
+@keyframes arrive{from{opacity:0}}
+@media (max-width:760px){.wall{width:30vw;opacity:calc(var(--wall-fade)*.6)}}
+
+/* ---------- page 2: the climb ---------- */
+.home{position:fixed;z-index:5;top:calc(env(safe-area-inset-top,0px) + 12px);left:12px;background:var(--paper);font-size:.68rem;padding:.5rem .85rem}
+.skip{position:fixed;z-index:5;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:.35rem;
+  padding:.7rem .8rem .6rem;background:var(--paper);border:1px solid var(--line);border-radius:2px;outline:1px solid var(--line);outline-offset:3px;
+  color:var(--brown);font:400 .62rem var(--f-display);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:opacity .4s,transform .4s}
+.skip svg{width:30px;height:46px;color:var(--rod);transition:transform .3s}
+.skip:hover{border-color:var(--sage-deep)}
+.skip:hover svg{transform:translateY(-4px)}
+.skip.away{opacity:0;transform:translateY(10px);pointer-events:none}
+.head{padding-block:3rem 1.5rem}
+.head h2{font:400 clamp(1.6rem,5vw,2.2rem)/1.15 var(--f-display);letter-spacing:.06em}
+.head p{margin:.4rem 0 0;color:var(--brown-soft)}
+.top{padding-top:4.5rem;text-align:center}
+.top .head{padding-bottom:0}
+.contact{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.8rem 1rem;margin-top:1rem}
+
+.stalk{position:relative;max-width:900px;margin-inline:auto;display:flex;flex-direction:column;gap:7rem;padding-block:2rem}
+.vine{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.vine .main{fill:none;stroke:var(--sage-deep);stroke-width:7;stroke-linecap:round}
+.vine .twist{fill:none;stroke:var(--sage);stroke-width:3;stroke-linecap:round}
+.vine .leaf{fill:var(--sage);stroke:var(--sage-deep);stroke-width:1;transform-box:fill-box;transition:transform .6s cubic-bezier(.3,1.4,.5,1)}
+.vine .leaf.left{transform-origin:100% 100%}.vine .leaf.right{transform-origin:0% 100%}
+.vine .leaf:not(.on){transform:scale(0)}
+
+.cloud{position:relative;align-self:center;width:min(100%,680px);height:150px;color:var(--paper)}
+/* a little sky: one crisp cloud where the vine ends, and fainter ones drifting behind it */
+.cloud svg{position:absolute;height:auto;overflow:visible}
+.cloud .c-main{left:50%;bottom:0;width:190px;margin-left:-95px}
+.cloud .c1{left:4%;top:18px;width:130px;opacity:.4;animation:drift 26s ease-in-out infinite alternate}
+.cloud .c2{right:3%;top:0;width:160px;opacity:.32;animation:drift 32s ease-in-out infinite alternate-reverse}
+.cloud .c3{left:22%;bottom:12px;width:115px;opacity:.65;animation:drift 22s ease-in-out infinite alternate-reverse}
+.cloud .c4{right:20%;bottom:30px;width:125px;opacity:.55;animation:drift 28s ease-in-out infinite alternate}
+.cloud .c5{left:42%;top:0;width:80px;opacity:.25;animation:drift 36s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translateX(-14px)}to{transform:translateX(14px)}}
+.seed{align-self:center;text-align:center;color:var(--brown-soft);font:italic 400 1.1rem var(--f-italic)}
+.seed svg{display:block;margin:0 auto .4rem;width:120px;height:26px}
+.up{text-align:center;padding-block:1.4rem 2.4rem;margin:0;font:400 .72rem var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--sage-deep)}
+.up span{display:inline-block;animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+
+.entry{padding:1.1rem 1.3rem;background:var(--paper);border:1px solid var(--line);border-radius:2px;outline:1px solid var(--line);outline-offset:3px;transition:opacity .5s}
+/* leaves and scrolls alternate sides; script tags them .l / .r, starting from the bottom */
+.stalk>.l,.stalk>.r{width:40%;align-self:flex-start}
+.stalk>.r{align-self:flex-end}
+.entry h3{font:500 1.05rem/1.35 var(--f-display);letter-spacing:.03em;margin-block:.35rem .3rem}
+.entry p{margin:0;font-size:1.05rem;color:var(--brown-soft)}
+.entry .deg{color:var(--brown);font-size:1.15rem;font-weight:500}
+.entry .deg+p{margin-top:.6rem}
+/* soft highlighter swipe behind the school names, in each school's colour */
+.hl{padding:0 .25em;margin:0 -.25em;border-radius:.3em .2em .35em .25em;-webkit-box-decoration-break:clone;box-decoration-break:clone;
+  background:linear-gradient(100deg,transparent .2em,var(--hl) .5em,var(--hl) calc(100% - .5em),transparent calc(100% - .2em)) 0 62%/100% 58% no-repeat}
+.hl-brown{--hl:rgb(176 128 88/.16)}
+.hl-blue{--hl:rgb(155 203 235/.3)}
+
+/* ---------- apprenticeships: internships, buried in the soil under the seed ---------- */
+.soil{position:relative;margin-inline:-16px;padding:0 16px calc(4rem + env(safe-area-inset-bottom,0px));background:linear-gradient(var(--soil) 0,var(--soil-deep) 100%);color:var(--soil-ink)}
+.soil .edge{display:block;width:100%;height:28px;margin-top:-27px;color:var(--soil)}
+.roots{display:block;width:160px;height:90px;margin:0 auto;color:var(--root)}
+.guild{max-width:900px;margin-inline:auto}
+.guild .head{text-align:center;padding-top:1rem}
+.guild .head h2{color:var(--soil-ink)}
+.guild .head p{color:var(--soil-ink);opacity:.8;font-style:italic}
+.trades{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;padding:2rem 4px 0}
+.trade{position:relative;text-align:center;padding:1.8rem 1.3rem 1.3rem;background:var(--paper);color:var(--brown);border:1px solid var(--line);border-radius:2px;outline:1px solid var(--root);outline-offset:3px}
+.trade::before{content:"";position:absolute;top:-9px;left:50%;width:16px;height:16px;margin-left:-8px;transform:rotate(45deg);background:var(--soil);border:1px solid var(--root)}
+.trade h3{font:500 1.05rem/1.35 var(--f-display);letter-spacing:.03em;margin-block:.35rem .2rem}
+.trade .role{margin:0 0 .5rem;font-style:italic;color:var(--brown-soft);font-size:1rem}
+.trade p{margin:0;font-size:1.05rem;color:var(--brown-soft)}
+.entry.dim{opacity:.35}
+
+/* a little bear (Brown's Bruno) pacing along the top of the Brown leaf */
+.entry.has-bear{position:relative}
+.bear{position:absolute;bottom:calc(100% + 3px);left:0;width:48px;height:34px;overflow:visible;animation:pace 22s ease-in-out infinite,b-legs 22s linear infinite}
+.bear .b-body{animation:bob .3s ease-in-out infinite alternate}
+.bear .leg{transform-box:fill-box;transform-origin:50% 0;animation:l-stride .6s ease-in-out infinite alternate}
+.bear .leg.b{animation-delay:-.6s}
+@keyframes pace{
+  0%{left:0;transform:scaleX(1)}
+  18%,33%{left:calc(50% - 24px);transform:scaleX(1)}
+  48%{left:calc(100% - 48px);transform:scaleX(1)}
+  50%,52%{left:calc(100% - 48px);transform:scaleX(-1)}
+  66%,81%{left:calc(50% - 24px);transform:scaleX(-1)}
+  95%{left:0;transform:scaleX(-1)}
+  97%,100%{left:0;transform:scaleX(1)}}
+/* at each halfway stop (once each way): rear up a little and wave a front paw */
+.bear .b-rear{transform-box:view-box;transform-origin:12px 33px;animation:rear 22s ease-in-out infinite}
+.bear .paw{transform-box:view-box;transform-origin:34.5px 24px;animation:wave 22s ease-in-out infinite}
+@keyframes rear{0%,19%,32%,67%,80%,100%{transform:rotate(0)}20.5%,30.5%,68.5%,78.5%{transform:rotate(-12deg)}}
+@keyframes wave{0%,100%{transform:rotate(0)}19.5%,31.5%{transform:rotate(0)}21%{transform:rotate(-115deg)}22.5%{transform:rotate(-80deg)}24%{transform:rotate(-120deg)}25.5%{transform:rotate(-80deg)}27%{transform:rotate(-120deg)}28.5%{transform:rotate(-85deg)}30%{transform:rotate(-110deg)}67.5%,79.5%{transform:rotate(0)}69%{transform:rotate(-115deg)}70.5%{transform:rotate(-80deg)}72%{transform:rotate(-120deg)}73.5%{transform:rotate(-80deg)}75%{transform:rotate(-120deg)}76.5%{transform:rotate(-85deg)}78%{transform:rotate(-110deg)}}
+@keyframes b-legs{0%,17.5%{--stride:20deg}18%,33%{--stride:0deg}33.5%,65.5%{--stride:20deg}66%,81%{--stride:0deg}81.5%,100%{--stride:20deg}}
+@keyframes bob{to{transform:translateY(-.7px)}}
+
+/* a lion (Columbia's) pacing the Columbia leaf, stopping halfway each way to roar.
+   Every part runs on the same 24s clock so the stops, legs and roar line up. */
+@property --stride{syntax:"<angle>";inherits:true;initial-value:18deg}
+.entry.has-lion{position:relative}
+.lion{position:absolute;bottom:calc(100% + 3px);left:0;width:56px;height:38px;animation:l-pace 24s ease-in-out infinite,l-legs 24s linear infinite}
+.lion svg{display:block;width:100%;height:100%;overflow:visible;animation:l-face 24s linear infinite}
+.lion .leg{transform-box:fill-box;transform-origin:50% 0;animation:l-stride .55s ease-in-out infinite alternate}
+.lion .leg.b{animation-delay:-.55s}
+.lion .l-head{transform-box:view-box;transform-origin:38px 20px;animation:l-lift 24s ease-in-out infinite}
+.lion .jaw{transform-box:view-box;transform-origin:44px 18px;animation:l-jaw 24s ease-in-out infinite}
+.lion .tail{transform-box:view-box;transform-origin:9px 20px;animation:l-tail 1.6s ease-in-out infinite alternate}
+.roar{position:absolute;bottom:100%;left:50%;translate:-50% 0;font:500 .7rem var(--f-display);letter-spacing:.12em;color:var(--mane);white-space:nowrap;opacity:0;animation:l-roar 24s ease-out infinite}
+/* three roars per lap: at the start, the middle and the end of the walk across */
+@keyframes l-pace{0%,8%{left:0}24%,34%{left:calc(50% - 28px)}50%,61%{left:calc(100% - 56px)}94%,100%{left:0}}
+@keyframes l-face{0%,60.9%{transform:scaleX(1)}61%,95.9%{transform:scaleX(-1)}96%,100%{transform:scaleX(1)}}
+@keyframes l-legs{0%,8%{--stride:0deg}8.5%,23.5%{--stride:18deg}24%,34%{--stride:0deg}34.5%,49.5%{--stride:18deg}50%,61.5%{--stride:0deg}62%,93.5%{--stride:18deg}94%,100%{--stride:0deg}}
+@keyframes l-stride{from{transform:rotate(calc(var(--stride) * -1))}to{transform:rotate(var(--stride))}}
+@keyframes l-lift{0%{transform:rotate(0)}0.5%{transform:rotate(0)}2.0%,5.0%{transform:rotate(-12deg)}6.5%{transform:rotate(0)}25.0%{transform:rotate(0)}26.5%,29.5%{transform:rotate(-12deg)}31.0%{transform:rotate(0)}51.0%{transform:rotate(0)}52.5%,55.5%{transform:rotate(-12deg)}57.0%{transform:rotate(0)}100%{transform:rotate(0)}}
+@keyframes l-jaw{0%{transform:rotate(0)}1.0%{transform:rotate(0)}2.5%,4.5%{transform:rotate(32deg)}6.0%{transform:rotate(0)}25.5%{transform:rotate(0)}27.0%,29.0%{transform:rotate(32deg)}30.5%{transform:rotate(0)}51.5%{transform:rotate(0)}53.0%,55.0%{transform:rotate(32deg)}56.5%{transform:rotate(0)}100%{transform:rotate(0)}}
+@keyframes l-roar{0%{opacity:0;transform:translateY(4px) scale(.7)}1.5%{opacity:0;transform:translateY(4px) scale(.7)}2.5%,5.5%{opacity:1;transform:translateY(-6px) scale(1)}6.5%{opacity:0;transform:translateY(4px) scale(.7)}26.0%{opacity:0;transform:translateY(4px) scale(.7)}27.0%,30.0%{opacity:1;transform:translateY(-6px) scale(1)}31.0%{opacity:0;transform:translateY(4px) scale(.7)}52.0%{opacity:0;transform:translateY(4px) scale(.7)}53.0%,56.0%{opacity:1;transform:translateY(-6px) scale(1)}57.0%{opacity:0;transform:translateY(4px) scale(.7)}100%{opacity:0;transform:translateY(4px) scale(.7)}}
+@keyframes l-tail{from{transform:rotate(-8deg)}to{transform:rotate(10deg)}}
+/* start the bear's loop just before its wave, so visitors see it wave first */
+.bear,.bear .b-rear,.bear .paw{animation-delay:-4s}
+
+/* a blue parrot (LangChain's) perched on a small L-shaped perch on the left of the LangChain leaf.
+   It mostly sits; now and then it hops along the branch, walks, flaps, and walks back. 18s loop. */
+.entry.has-parrot{position:relative}
+.perch{position:absolute;bottom:calc(100% + 30px);left:18px;width:140px;height:6px}
+/* the post: rises straight up from the top of the box, then the bar turns off it at a right angle */
+.perch::before{content:"";position:absolute;left:0;top:0;width:6px;height:34px;border-radius:3px 3px 0 0;background:linear-gradient(90deg,var(--rod-lo),var(--rod-hi) 45%,var(--rod))}
+.twig{position:absolute;inset:0;border-radius:3px 3px 3px 0;background:linear-gradient(var(--rod-hi),var(--rod) 60%,var(--rod-lo));}
+.parrot{position:absolute;bottom:3px;left:15%;width:44px;height:40px;animation:p-pace 18s ease-in-out infinite,p-legs 18s linear infinite}
+.parrot svg{display:block;width:100%;height:100%;overflow:visible;animation:p-face 18s linear infinite}
+.parrot .p-hop{animation:p-hop 18s ease-in-out infinite}
+.parrot .p-head{transform-box:view-box;transform-origin:27px 17px;animation:p-look 6s ease-in-out infinite}
+.parrot .leg{transform-box:fill-box;transform-origin:50% 0;animation:l-stride .4s ease-in-out infinite alternate}
+.parrot .leg.b{animation-delay:-.4s}
+.parrot .wing{transform-box:view-box;transform-origin:18px 17px;animation:p-flap 18s linear infinite}
+@keyframes p-pace{0%,38%{left:6px}44%{left:44px}52%,64%{left:calc(100% - 50px)}78%,100%{left:6px}}
+@keyframes p-face{0%,64%{transform:scaleX(1)}65%,79%{transform:scaleX(-1)}80%,100%{transform:scaleX(1)}}
+@keyframes p-legs{0%,44%{--stride:0deg}44.5%,51.5%{--stride:16deg}52%,64.5%{--stride:0deg}65%,77.5%{--stride:16deg}78%,100%{--stride:0deg}}
+@keyframes p-hop{0%,10%{transform:translateY(0)}11.5%{transform:translateY(-12px)}13%,38%{transform:translateY(0)}41%{transform:translateY(-16px)}44%,100%{transform:translateY(0)}}
+@keyframes p-look{0%,30%,100%{transform:rotate(0)}35%,55%{transform:rotate(-14deg)}60%,75%{transform:rotate(8deg)}}
+@keyframes p-flap{0%{transform:rotate(0)}10.40%{transform:rotate(0)}10.85%{transform:rotate(-140deg)}11.30%{transform:rotate(0)}11.75%{transform:rotate(-140deg)}12.20%{transform:rotate(0)}12.65%{transform:rotate(-140deg)}13.10%{transform:rotate(0)}13.55%{transform:rotate(-140deg)}14.00%{transform:rotate(0)}38.29%{transform:rotate(0)}38.77%{transform:rotate(-140deg)}39.25%{transform:rotate(0)}39.73%{transform:rotate(-140deg)}40.20%{transform:rotate(0)}40.68%{transform:rotate(-140deg)}41.15%{transform:rotate(0)}41.63%{transform:rotate(-140deg)}42.10%{transform:rotate(0)}42.58%{transform:rotate(-140deg)}43.05%{transform:rotate(0)}43.53%{transform:rotate(-140deg)}44.00%{transform:rotate(0)}55.99%{transform:rotate(0)}56.50%{transform:rotate(-140deg)}57.00%{transform:rotate(0)}57.50%{transform:rotate(-140deg)}58.00%{transform:rotate(0)}58.50%{transform:rotate(-140deg)}59.00%{transform:rotate(0)}59.50%{transform:rotate(-140deg)}60.00%{transform:rotate(0)}60.50%{transform:rotate(-140deg)}61.00%{transform:rotate(0)}61.50%{transform:rotate(-140deg)}62.00%{transform:rotate(0)}100%{transform:rotate(0)}}
+@keyframes stride{from{transform:rotate(-20deg)}to{transform:rotate(20deg)}}
+
+/* ---------- scrolls on the stalk: hover unrolls (tap on touch screens); the sheet hangs over the page below ---------- */
+.scroll{position:relative;z-index:2;padding-bottom:16px;filter:drop-shadow(0 6px 8px rgb(60 40 20/.18));transition:opacity .5s}
+.scroll.dim{opacity:.35}
+.scroll:hover,.scroll.open{z-index:4;opacity:1}
+.drop{position:absolute;left:0;right:0;top:calc(100% - 16px)}
+.rod{position:relative;z-index:1;height:16px;margin-inline:-14px;border-radius:8px;background:linear-gradient(var(--rod-hi),var(--rod) 55%,var(--rod-lo))}
+.rod::before,.rod::after{content:"";position:absolute;top:-4px;width:12px;height:24px;border-radius:6px;background:linear-gradient(90deg,var(--rod-lo),var(--rod-hi),var(--rod-lo))}
+.rod::before{left:-8px}.rod::after{right:-8px}
+.sheet{background:linear-gradient(90deg,var(--parch-edge),var(--parch) 7%,var(--parch) 93%,var(--parch-edge));margin-inline:2px}
+.label{display:block;width:100%;border:0;background:none;color:inherit;font:inherit;text-align:center;padding:.9rem 1.4rem 1rem;cursor:pointer}
+.label .tag{font-size:.85rem;font-style:italic;color:var(--brown-soft)}
+.label .dot{margin-inline:.5em;font-style:normal}
+.label h3{font:500 1.05rem/1.35 var(--f-display);letter-spacing:.03em;margin-block:.3rem .25rem}
+.label .hint{display:block;margin-top:.35rem;font:400 .62rem var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--sage-deep);transition:opacity .4s}
+.hint .tap{display:none}
+@media (hover:none){.hint .tap{display:inline}.hint .hov{display:none}}
+.body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .9s cubic-bezier(.4,0,.2,1)}
+.body>div{overflow:hidden}
+.body .text{padding:0 1.4rem 1.3rem;opacity:0;transition:opacity .5s .1s}
+.body p{margin:0 0 .8rem;font-size:1.05rem}
+.body iframe{display:block;width:100%;border:0;border-radius:2px;background:var(--paper)}
+.stats{display:flex;flex-wrap:wrap;gap:.4rem 0;margin-top:1.1rem;padding-top:.9rem;border-top:1px dashed var(--parch-edge);text-align:center}
+.stats-k{flex-basis:100%;font:400 .62rem var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--sage-deep)}
+.stats div{flex:1;min-width:5.5rem}
+.stats b{display:block;font:500 1.35rem/1.1 var(--f-display);color:var(--brown)}
+.stats div span{font-size:.9rem;font-style:italic;color:var(--brown-soft)}
+.body .more{display:block;width:fit-content;margin-top:.8rem;font-size:.95rem;font-style:italic;color:var(--brown-soft)}  /* always on its own line */
+@media (hover:hover){
+  .scroll:hover .body{grid-template-rows:1fr}
+  .scroll:hover .body .text{opacity:1}
+  .scroll:hover .hint{opacity:0}
+}
+.scroll.open .body{grid-template-rows:1fr}
+.scroll.open .body .text{opacity:1}
+.scroll.open .hint{opacity:0}
+
+/* casual variant: a pinned, tilted note on lined paper with a torn edge (for lighter posts) */
+.scroll.note{padding-bottom:0;transform:rotate(-2deg);transition:transform .4s ease,opacity .5s}
+.scroll.note.r{transform:rotate(2.2deg)}
+.scroll.note:hover,.scroll.note.open{transform:rotate(0)}
+.note .rod{display:none}
+.note .sheet{margin-inline:0;background:var(--note) repeating-linear-gradient(transparent 0 27px,var(--note-line) 27px 28px)}
+.note .label{padding-top:1.5rem}
+.note .label h3{font:500 1.4rem/1.2 var(--f-body);letter-spacing:.01em}
+.note .drop{top:100%}
+.note .drop::after{content:"";display:block;height:8px;background:var(--note);
+  -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%;
+          mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%}
+.note::before{content:"";position:absolute;z-index:3;top:-7px;left:50%;width:16px;height:16px;margin-left:-8px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#fff8 0 2px,var(--pin) 3px 60%,#0004);box-shadow:0 2px 2px rgb(0 0 0/.3)}
+
+@media (max-width:760px){
+  .stalk{gap:3.5rem}
+  .stalk>.l,.stalk>.r{width:calc(100% - 52px);align-self:flex-end}
+  .cloud,.seed{align-self:flex-start}
+  .trades{grid-template-columns:1fr;gap:2rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .bear{left:65%}
+  .cloud svg{animation:none}
+  .lion{left:55%}
+  .parrot{left:6px}
+
+  *{transition:none!important;animation:none!important}
+}
+</style>
+
+</head>
+<body>
+
+<!-- ============ PAGE 1: title page ============ -->
+<main class="col intro" id="intro">
+  <svg class="wall left" id="wallL" aria-hidden="true"></svg>
+  <svg class="wall right" id="wallR" aria-hidden="true"></svg>
+  <h1>Jess Weng</h1>
+  <div class="rule" aria-hidden="true"><span></span></div>
+  <p>A computer scientist who works where data meets people. I build dashboards and tracking systems, listen to customers, and explain the technical parts so everyone in the room can act on them.</p>
+  <p class="muted">B.A. Computer Science, Brown · M.S. Business Analytics, Columbia</p>
+  <a class="btn solid next" href="#tale">Next &rarr;</a>
+</main>
+
+<!-- ============ PAGE 2: the climb (read from the bottom up) ============ -->
+<div id="tale" hidden>
+  <a class="btn home" href="#">&larr; Beginning</a>
+  <button class="skip" id="skip" type="button" aria-label="Skip to the present day">
+    <svg viewBox="0 0 30 46" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 2v42M23 2v42"/><path d="M7 9h16M7 18h16M7 27h16M7 36h16" stroke-width="2"/></g></svg>
+    Present day
+  </button>
+
+  <!-- the very top: contact -->
+  <div class="col top" id="contact">
+    <div class="head"><h2>Say hello</h2></div>
+    <div class="contact">
+      <p style="margin:0;color:var(--brown-soft)">The best way to reach me is a message on LinkedIn.</p>
+      <a class="btn solid" href="https://www.linkedin.com/in/jessweng" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="contact">
+      <p style="margin:0;color:var(--brown-soft)">But I also post more casually on X.</p>
+      <a class="btn" href="https://x.com/jess_weng18" target="_blank" rel="noopener">@jess_weng18</a>
+    </div>
+    <div class="rule" aria-hidden="true"><span></span></div>
+  </div>
+
+
+
+  <!-- the beanstalk: newest at the top, oldest at the bottom -->
+  <section aria-label="Timeline">
+    <div class="stalk" id="stalk">
+      <svg class="vine" id="vine" aria-hidden="true"></svg>
+
+      <div class="cloud" aria-hidden="true">
+        <svg class="c2" viewBox="0 -20 180 76"><path d="M30 52a22 22 0 0 1 4-43 26 26 0 0 1 48-4 22 22 0 0 1 38 8 20 20 0 0 1 32 15 18 18 0 0 1-2 24z" fill="currentColor" stroke="var(--line)" stroke-width="1.5"/></svg>
+        <svg class="c5" viewBox="0 -20 180 76"><path d="M30 52a22 22 0 0 1 4-43 26 26 0 0 1 48-4 22 22 0 0 1 38 8 20 20 0 0 1 32 15 18 18 0 0 1-2 24z" fill="currentColor" stroke="var(--line)" stroke-width="1.5"/></svg>
+        <svg class="c1" viewBox="0 -20 180 76"><path d="M30 52a22 22 0 0 1 4-43 26 26 0 0 1 48-4 22 22 0 0 1 38 8 20 20 0 0 1 32 15 18 18 0 0 1-2 24z" fill="currentColor" stroke="var(--line)" stroke-width="1.5"/></svg>
+        <svg class="c4" viewBox="0 -20 180 76"><path d="M30 52a22 22 0 0 1 4-43 26 26 0 0 1 48-4 22 22 0 0 1 38 8 20 20 0 0 1 32 15 18 18 0 0 1-2 24z" fill="currentColor" stroke="var(--line)" stroke-width="1.5"/></svg>
+        <svg class="c3" viewBox="0 -20 180 76"><path d="M30 52a22 22 0 0 1 4-43 26 26 0 0 1 48-4 22 22 0 0 1 38 8 20 20 0 0 1 32 15 18 18 0 0 1-2 24z" fill="currentColor" stroke="var(--line)" stroke-width="1.5"/></svg>
+        <svg class="c-main" viewBox="0 -20 180 76"><path d="M30 52a22 22 0 0 1 4-43 26 26 0 0 1 48-4 22 22 0 0 1 38 8 20 20 0 0 1 32 15 18 18 0 0 1-2 24z" fill="currentColor" stroke="var(--line)" stroke-width="1.5"/></svg>
+      </div>
+
+
+      <!-- LinkedIn posts and talks, as scrolls. To add a LinkedIn post: on LinkedIn, open the post, "..." menu,
+           "Embed this post", copy the <iframe>, and paste it inside a scroll's <div class="text">. -->
+      <article class="scroll">
+        <div class="rod" aria-hidden="true"></div>
+        <div class="sheet">
+          <button class="label" aria-expanded="false"><span class="tag">Invited talk<span class="dot">&middot;</span>Oct 19, 2026</span><h3>Global AI Builder Series</h3><span class="hint"><span class="hov">Hover to unroll</span><span class="tap">Tap to unroll</span></span></button>
+        </div>
+        <div class="drop">
+          <div class="body sheet"><div><div class="text">
+            <p><em>Beyond Simple Agents: Building with LangChain Deep Agents</em></p>
+            <p>A lightning lesson with The Gen Academy. Covers what sets Deep Agents apart, how the harness handles long-running work, managing context with memory and summarization, and delegating to subagents.</p>
+            <a class="btn solid" href="https://maven.com/p/73db9b/beyond-simple-agents-building-with-lang-chain-deep-agents" target="_blank" rel="noopener">View on Maven</a>
+          </div></div></div>
+          <div class="rod" aria-hidden="true"></div>
+        </div>
+      </article>
+
+      <article class="scroll">
+        <div class="rod" aria-hidden="true"></div>
+        <div class="sheet">
+          <button class="label" aria-expanded="false"><span class="tag">Invited talk<span class="dot">&middot;</span>Oct 13, 2026</span><h3>O&rsquo;Reilly Expert Showcase:<br>Agent Memory</h3><span class="hint"><span class="hov">Hover to unroll</span><span class="tap">Tap to unroll</span></span></button>
+        </div>
+        <div class="drop">
+          <div class="body sheet"><div><div class="text">
+            <p><em>How Deep Agents Remember Without Keeping Everything in Context</em></p>
+            <p>Context windows are finite, but long-running tasks aren&rsquo;t. Covers summarization, subagents, offloading and long-term memory on a real task end to end: how they prevent context rot without losing what matters, and how a model-agnostic harness lets agents keep their memory even when you switch models.</p>
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7513380692299288576?collapsed=1" height="509" title="LinkedIn post: Agent Memory expert showcase" loading="lazy" allowfullscreen></iframe>
+            <a class="btn solid" style="margin-top:1rem" href="https://www.oreilly.com/live/expert-showcase-agent-memory.html" target="_blank" rel="noopener">Event page on O&rsquo;Reilly</a>
+          </div></div></div>
+          <div class="rod" aria-hidden="true"></div>
+        </div>
+      </article>
+
+      <article class="scroll">
+        <div class="rod" aria-hidden="true"></div>
+        <div class="sheet">
+          <button class="label" aria-expanded="false"><span class="tag">Webinar<span class="dot">&middot;</span>Sep 17, 2026</span><h3>Agent Harnesses &amp; Deep Agents 101</h3><span class="hint"><span class="hov">Hover to unroll</span><span class="tap">Tap to unroll</span></span></button>
+        </div>
+        <div class="drop">
+          <div class="body sheet"><div><div class="text">
+            <p>A beginner-friendly introduction to Deep Agents and agent harnesses, covering the system prompt, tools, human-in-the-loop and subagents, plus a live demo building a journaling agent (mental health is important).</p>
+            <a class="btn solid" href="https://events.langchain.com/on-demand/bac35c58-985f-449c-826d-d5a8474ce2fe" target="_blank" rel="noopener">Watch the recording</a>
+            <div class="stats" aria-label="Fun stats">
+              <span class="stats-k">Fun stats</span>
+              <div><b>1.76k</b><span>joined live</span></div>
+              <div><b>1,122</b><span>companies</span></div>
+              <div><b>63</b><span>countries</span></div>
+            </div>
+          </div></div></div>
+          <div class="rod" aria-hidden="true"></div>
+        </div>
+      </article>
+
+      <article class="scroll note">
+        <div class="sheet">
+          <button class="label" aria-expanded="false"><span class="tag">Video<span class="dot">&middot;</span>under 2 minutes</span><h3>Skills explained</h3><span class="hint"><span class="hov">Hover to unfold</span><span class="tap">Tap to unfold</span></span></button>
+        </div>
+        <div class="drop">
+          <div class="body sheet"><div><div class="text">
+            <p>Skills are task-specific bundles of instructions an agent only opens when it needs them, like reading the back of a book first.</p>
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7514091585903525888" height="560" title="LinkedIn post: Skills explained in less than 2 minutes" loading="lazy" allowfullscreen></iframe>
+            <a class="more" style="display:inline-block;margin-top:.8rem" href="https://lnkd.in/p/gAdmGCT2" target="_blank" rel="noopener">Watch on LinkedIn</a>
+          </div></div></div>
+        </div>
+      </article>
+
+      <article class="scroll note">
+        <div class="sheet">
+          <button class="label" aria-expanded="false"><span class="tag">Video<span class="dot">&middot;</span>under 90 seconds</span><h3>Agent harnesses explained</h3><span class="hint"><span class="hov">Hover to unfold</span><span class="tap">Tap to unfold</span></span></button>
+        </div>
+        <div class="drop">
+          <div class="body sheet"><div><div class="text">
+            <p>What a harness is: the scaffolding that turns a language model into an agent.</p>
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7504279468568621056" height="560" title="LinkedIn post: Agent harnesses in less than 90 seconds" loading="lazy" allowfullscreen></iframe>
+            <a class="more" style="display:inline-block;margin-top:.8rem" href="https://lnkd.in/p/gGcg3nzD" target="_blank" rel="noopener">Watch on LinkedIn</a>
+          </div></div></div>
+        </div>
+      </article>
+
+      <article class="scroll">
+        <div class="rod" aria-hidden="true"></div>
+        <div class="sheet">
+          <button class="label" aria-expanded="false"><span class="tag">Course launch</span><h3>LangChain Academy:<br>Deep Agents</h3><span class="hint"><span class="hov">Hover to unroll</span><span class="tap">Tap to unroll</span></span></button>
+        </div>
+        <div class="drop">
+          <div class="body sheet"><div><div class="text">
+            <p>A free LangChain Academy course on building long-running agents with Deep Agents, LangChain&rsquo;s open-source agent harness: covering sandboxes, context management, subagents and more.</p>
+            <a class="btn solid" href="https://academy.langchain.com/courses/foundation-introduction-to-deepagents" target="_blank" rel="noopener">Take the course</a>
+            <a class="more" href="https://lnkd.in/p/gN55GxXn" target="_blank" rel="noopener">Read the launch post</a>
+          </div></div></div>
+          <div class="rod" aria-hidden="true"></div>
+        </div>
+      </article>
+
+      <article class="scroll">
+        <div class="rod" aria-hidden="true"></div>
+        <div class="sheet">
+          <button class="label" aria-expanded="false"><span class="tag">Course launch</span><h3>LangChain Academy:<br>Fleet</h3><span class="hint"><span class="hov">Hover to unroll</span><span class="tap">Tap to unroll</span></span></button>
+        </div>
+        <div class="drop">
+          <div class="body sheet"><div><div class="text">
+            <p>A free LangChain Academy course on building no-code agents in LangSmith Fleet: covering human-in-the-loop review, MCP, subagents and so much more.</p>
+            <a class="btn solid" href="https://academy.langchain.com/courses/quickstart-agent-builder?utm_source=linkedin&amp;utm_medium=social" target="_blank" rel="noopener">Take the course</a>
+            <a class="more" href="https://lnkd.in/p/gpSFBcej" target="_blank" rel="noopener">Read the launch post</a>
+          </div></div></div>
+          <div class="rod" aria-hidden="true"></div>
+        </div>
+      </article>
+
+      <article class="entry has-parrot"><span class="perch" aria-hidden="true"><span class="twig"></span><span class="parrot"><svg viewBox="0 0 44 40"><g class="p-hop">
+        <path d="M15 24 2 36 6 38 18 28Z" fill="var(--parrot-dark)"/>
+        <g class="leg a"><path d="M20 30v7M18 37h4" fill="none" stroke="var(--bear-dark)" stroke-width="1.6" stroke-linecap="round"/></g>
+        <g class="leg b"><path d="M25 30v7M23 37h4" fill="none" stroke="var(--bear-dark)" stroke-width="1.6" stroke-linecap="round"/></g>
+        <ellipse cx="22" cy="22" rx="8.5" ry="10" transform="rotate(-20 22 22)" fill="var(--parrot)"/>
+        <ellipse cx="25" cy="25" rx="4.6" ry="6.4" transform="rotate(-20 25 25)" fill="var(--parrot-light)"/>
+        <g class="p-head">
+          <circle cx="28" cy="11" r="6.5" fill="var(--parrot)"/>
+          <circle cx="30" cy="10" r="2.6" fill="#F4F1EA"/><circle cx="30.5" cy="10" r="1.1" fill="#1E1A17"/>
+          <path d="M33.5 8.6C38 8 39.5 12 37.2 15.4 36.4 13.2 35.2 12.6 33.6 13Z" fill="#2B2724"/>
+        </g>
+        <path class="wing" d="M16 16C23 14 28 21 26.5 30 22 30 16.5 26 16 16Z" fill="var(--parrot-dark)"/>
+      </g></svg></span></span><span class="date">Now</span><h3>LangChain</h3><p class="deg">Education Engineer</p><p>Helping developers learn and build with hands-on content across LangChain&rsquo;s ecosystem.</p></article>
+
+      <article class="entry has-lion"><span class="lion" aria-hidden="true"><span class="roar">Roar!</span><svg viewBox="0 0 56 38">
+        <g class="tail"><path d="M9 20C5 18 3 15 3 11" fill="none" stroke="var(--lion)" stroke-width="2" stroke-linecap="round"/><circle cx="3" cy="10" r="2.4" fill="var(--mane)"/></g>
+        <g class="leg a"><rect x="12" y="25" width="5" height="11" rx="2.5" fill="var(--lion)" style="filter:brightness(.9)"/></g>
+        <g class="leg b"><rect x="31" y="25" width="5" height="11" rx="2.5" fill="var(--lion)" style="filter:brightness(.9)"/></g>
+        <ellipse cx="24" cy="21" rx="15" ry="8.5" fill="var(--lion)"/>
+        <g class="leg b"><rect x="15" y="25" width="5" height="11" rx="2.5" fill="var(--lion)"/></g>
+        <g class="leg a"><rect x="34" y="25" width="5" height="11" rx="2.5" fill="var(--lion)"/></g>
+        <g class="l-head">
+          <g fill="var(--mane)"><circle cx="40" cy="15" r="10"/><circle cx="33" cy="10" r="4"/><circle cx="33" cy="20" r="4"/><circle cx="40" cy="5.5" r="3.6"/><circle cx="40" cy="24.5" r="3.6"/><circle cx="46" cy="7.5" r="3.4"/><circle cx="46" cy="22.5" r="3.4"/></g>
+          <circle cx="39" cy="9" r="2" fill="var(--lion)"/>
+          <circle cx="43" cy="15" r="6.5" fill="var(--lion)"/>
+          <ellipse cx="47.5" cy="19.6" rx="2.6" ry="1.8" fill="#3A1F12"/>
+          <g class="jaw"><ellipse cx="47" cy="18.8" rx="3.1" ry="1.6" fill="var(--lion-light)"/></g>
+          <ellipse cx="47.6" cy="16.4" rx="3.1" ry="2.3" fill="var(--lion-light)"/>
+          <circle cx="50.3" cy="15.6" r="1.1" fill="#3A1F12"/>
+          <circle cx="44.2" cy="13.2" r=".95" fill="#3A1F12"/>
+        </g>
+      </svg></span><span class="date">Graduate degree</span><h3><span class="hl hl-blue">Columbia University</span></h3><p class="deg">M.S. Business Analytics</p></article>
+      <article class="entry has-bear"><svg class="bear" viewBox="0 0 48 34" aria-hidden="true"><g class="b-rear">
+        <g class="leg a"><rect x="11" y="23" width="5" height="10" rx="2.5" fill="var(--bear)"/></g>
+        <g class="leg b"><rect x="29" y="23" width="5" height="10" rx="2.5" fill="var(--bear)"/></g>
+        <g class="b-body">
+          <circle cx="7" cy="16" r="2.4" fill="var(--bear)"/>
+          <ellipse cx="22" cy="19" rx="15" ry="9" fill="var(--bear)"/>
+          <circle cx="34" cy="6.5" r="2.8" fill="var(--bear)"/><circle cx="34" cy="6.5" r="1.3" fill="var(--bear-light)"/>
+          <circle cx="37" cy="12.5" r="7" fill="var(--bear)"/>
+          <ellipse cx="43.2" cy="14.6" rx="3.6" ry="2.7" fill="var(--bear-light)"/>
+          <circle cx="46.3" cy="13.9" r="1.2" fill="var(--bear-dark)"/>
+          <circle cx="39" cy="10.8" r="1" fill="var(--bear-dark)"/>
+        </g>
+        <g class="leg b"><rect x="14" y="23" width="5" height="10" rx="2.5" fill="var(--bear)" style="filter:brightness(1.12)"/></g>
+        <g class="paw"><g class="leg a"><rect x="32" y="23" width="5" height="10" rx="2.5" fill="var(--bear)" style="filter:brightness(1.12)"/><ellipse cx="34.5" cy="31" rx="1.7" ry="1.4" fill="var(--bear-light)"/></g></g>
+      </g></svg><span class="date">Undergraduate degree</span><h3><span class="hl hl-brown">Brown University</span></h3><p class="deg">B.A. Computer Science</p></article>
+
+      <div class="seed">
+        <svg viewBox="0 0 120 26" aria-hidden="true"><path d="M4 14c20-8 40-8 56 0s36 8 56 0" fill="none" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/><ellipse cx="60" cy="11" rx="7" ry="5" fill="var(--brown-soft)"/></svg>
+        Where it began
+      </div>
+    </div>
+  </section>
+
+  <p class="up"><span aria-hidden="true">&uarr;</span> Scroll up to climb</p>
+
+  <!-- the soil: apprenticeships (internships) are the roots under the seed -->
+  <div class="soil">
+    <svg class="edge" viewBox="0 0 1200 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 28V14C120 4 220 20 360 12S600 2 760 12 1040 22 1200 10V28Z" fill="currentColor"/></svg>
+    <svg class="roots" viewBox="0 0 160 90" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M80 0C80 30 78 55 82 88"/><path d="M80 18C66 30 48 34 30 52"/><path d="M80 22C96 34 116 38 132 60"/><path d="M79 40C70 54 58 62 50 82"/><path d="M81 44C92 58 104 66 112 84"/></g></svg>
+    <section class="guild" id="apprenticeships" aria-label="Apprenticeships">
+      <div class="head">
+        <h2>The Apprenticeships</h2>
+        <p>The roots: the foundation and strength behind the beanstalk.</p>
+      </div>
+      <div class="trades">
+        <article class="trade"><span class="date">May – Aug 2025</span><h3>Virgil Abloh Foundation</h3><p class="role">Partnerships</p><p>Partnerships with Apple TV+ and NGOs, and the systems to track them.</p></article>
+        <article class="trade"><span class="date">Jan – May 2025</span><h3>The Vita Coco Company</h3><p class="role">Consumer insights</p><p>25+ consumer interviews on what drives Gen-Z and Millennial buyers.</p></article>
+        <article class="trade"><span class="date">Jan – May 2025</span><h3>Regeneron Pharmaceuticals</h3><p class="role">Data analytics</p><p>Clinical-trial dashboards built from 50+ tables with SQL and Power BI.</p></article>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+(function(){
+  const NS="http://www.w3.org/2000/svg";
+  const intro=document.getElementById("intro");
+  const tale=document.getElementById("tale");
+  const stalk=document.getElementById("stalk");
+  const svg=document.getElementById("vine");
+  const entries=[...stalk.querySelectorAll(".entry,.scroll")];
+  entries.slice().reverse().forEach((e,i)=>e.classList.add(i%2?"r":"l"));
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let main,twist,L1=0,L2=0,H=1,leaves=[],samples=[];
+
+  function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+
+  /* ---- the brick wall: rows of bricks whose inner edge is ragged, like a hole knocked through ---- */
+  function drawWall(svgEl,seed,mirror){
+    let x0=seed;const rnd=()=>(x0=(x0*16807)%2147483647)/2147483647;   // small seeded PRNG, so the wall is the same on every visit
+    const W=svgEl.clientWidth||300,H=svgEl.clientHeight||innerHeight;
+    const k=W<200?.6:1, bh=30*k,gap=4*k,bw=74*k;                       // smaller bricks on phones
+    svgEl.setAttribute("viewBox","0 0 "+W+" "+H);
+    let out="";
+    for(let r=0,y=0;y<H;r++,y+=bh){
+      const edge=W*Math.max(.25,Math.min(.92,.57+.25*Math.sin(r*.42+seed%7)+(rnd()-.5)*.27));
+      for(let x=r%2?-bw/2:0;x<edge;x+=bw){
+        const w=Math.min(bw,edge-x)-gap; if(w<bw*.2)continue;
+        const bx=mirror?W-x-w-gap:x, c=1+Math.floor(rnd()*3);
+        out+='<rect class="b'+c+'" x="'+bx.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+(bh-gap).toFixed(1)+'" rx="1.5"/>';
+      }
+    }
+    svgEl.innerHTML=out;
+  }
+  const walls=()=>{if(intro.hidden)return;drawWall(document.getElementById("wallL"),9973,false);drawWall(document.getElementById("wallR"),4271,true)};
+  walls();
+  addEventListener("resize",walls);
+
+  document.querySelector(".intro .next").addEventListener("click",e=>{
+    if(reduce)return;
+    e.preventDefault();
+    document.body.classList.add("step");
+    setTimeout(()=>{location.hash="tale";tale.classList.add("arrive")},850);
+  });
+
+  /* ---- pages: "#tale" shows the climb, anything else shows the title page ---- */
+  function route(){
+    const onTale=location.hash==="#tale";
+    intro.hidden=onTale;tale.hidden=!onTale;
+    document.body.classList.remove("step");
+    if(!onTale){tale.classList.remove("arrive");walls()}
+    if(onTale){
+      build();
+      requestAnimationFrame(()=>requestAnimationFrame(skipVis));
+      // open at the bottom of the beanstalk
+      requestAnimationFrame(()=>{const sb=stalk.querySelector(".seed").getBoundingClientRect().bottom;window.scrollTo({top:scrollY+sb-innerHeight*0.7,behavior:"instant"})});
+    }else{
+      window.scrollTo({top:0,behavior:"instant"});
+    }
+  }
+  addEventListener("hashchange",route);
+
+  /* ---- scrolls: hover unrolls (CSS); click/tap/keyboard toggles ---- */
+  document.querySelectorAll(".scroll .label").forEach(b=>b.addEventListener("click",()=>{
+    const s=b.closest(".scroll"),open=s.classList.toggle("open");
+    b.setAttribute("aria-expanded",open);
+  }));
+
+  /* ---- "present day" ladder: jump to the top of the beanstalk ---- */
+  const skip=document.getElementById("skip");
+  skip.addEventListener("click",()=>window.scrollTo({top:0,behavior:reduce?"instant":"smooth"}));
+  const skipVis=()=>skip.classList.toggle("away",scrollY<innerHeight*.5);
+  addEventListener("scroll",skipVis,{passive:true});
+
+  /* ---- the vine ---- */
+  function build(){
+    if(tale.hidden)return;
+    svg.innerHTML="";leaves=[];
+    const W=stalk.clientWidth;H=stalk.offsetHeight;
+    svg.setAttribute("viewBox","0 0 "+W+" "+H);
+
+    const narrow=W<700;
+    const cx=narrow?20:W/2, amp=narrow?8:26;
+    // points from bottom (seed) to top (cloud)
+    const seed=stalk.querySelector(".seed"), cloud=stalk.querySelector(".cloud");
+    const pts=[{x:cx,y:seed.offsetTop+6}];
+    [...entries].reverse().forEach(e=>{
+      const side=narrow?1:(e.classList.contains("l")?-1:1);
+      pts.push({x:cx+side*amp,y:e.offsetTop+e.offsetHeight/2,side,e});
+    });
+    pts.push({x:cx,y:cloud.offsetTop+cloud.offsetHeight-10});
+
+    const curve=o=>{let d="M"+(pts[0].x+o)+" "+pts[0].y;for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i],dy=(b.y-a.y)/2;d+=" C"+(a.x+o)+" "+(a.y+dy)+" "+(b.x-o)+" "+(b.y-dy)+" "+(b.x+o)+" "+b.y}return d};
+    main=el("path",{d:curve(0),class:"main"});
+    twist=el("path",{d:curve(narrow?5:9),class:"twist"});
+    svg.append(main,twist);
+    L1=main.getTotalLength();L2=twist.getTotalLength();
+    // sample the height reached at each length along the vine (it curves, so length and height differ)
+    samples=[];for(let i=0;i<=300;i++){const l=L1*i/300;samples.push([l,main.getPointAtLength(l).y])}
+    main.style.strokeDasharray=L1;twist.style.strokeDasharray=L2;
+
+    const leafPath=(x,y,dir,size)=>{const tip=x+dir*size;return "M"+x+" "+y+" C"+(x+dir*size*.3)+" "+(y-size*.6)+" "+(tip-dir*size*.1)+" "+(y-size*.55)+" "+tip+" "+(y-size*.5)+" C"+(tip-dir*size*.35)+" "+(y-size*.05)+" "+(x+dir*size*.3)+" "+(y+size*.08)+" "+x+" "+y+"Z"};
+    pts.slice(1,-1).forEach(p=>{
+      const dir=narrow?1:p.side, size=narrow?18:46, y=p.y-4;
+      const leaf=el("path",{class:"leaf "+(dir<0?"left":"right"),d:leafPath(p.x,y,dir,size)});
+      svg.append(leaf);leaves.push({y:p.y,leaf,e:p.e});
+      if(!narrow){
+        const d2=-dir;
+        const l2=el("path",{class:"leaf "+(d2<0?"left":"right"),d:leafPath(p.x,y+30,d2,size*.6)});
+        svg.append(l2);leaves.push({y:p.y+30,leaf:l2});
+      }
+    });
+    update();
+  }
+
+  // The vine has grown from the seed up to a point a little above the middle of the screen.
+  function update(){
+    if(tale.hidden||!main)return;
+    const tipY=reduce?0:Math.max(0,Math.min(H,innerHeight*0.45-stalk.getBoundingClientRect().top));
+    let reach=L1;
+    for(const [l,y] of samples){if(y<=tipY){reach=l;break}}
+    const g=reach/L1;
+    main.style.strokeDashoffset=L1*(1-g);
+    twist.style.strokeDashoffset=L2*(1-g);
+    leaves.forEach(l=>{
+      const on=tipY<=l.y+6;
+      l.leaf.classList.toggle("on",on);
+      if(l.e)l.e.classList.toggle("dim",!on);
+    });
+  }
+
+  let raf=0;
+  addEventListener("scroll",()=>{if(!raf)raf=requestAnimationFrame(()=>{raf=0;update()})},{passive:true});
+  let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(build,150)});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(build);
+  route();
+})();
+</script>
+</body>
+</html>
