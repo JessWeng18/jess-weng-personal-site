@@ -123,6 +123,22 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .post h3{font:500 1.15rem/1.35 var(--f-display);letter-spacing:.03em;margin-block:.4rem .5rem}
 .post p{margin:0 0 1.1rem;font-size:1.02rem;color:var(--brown-soft)}
 @media (max-width:700px){.post{grid-template-columns:1fr}}
+.memories{max-width:1000px;margin-inline:auto;padding:1rem 6px calc(4rem + env(safe-area-inset-bottom,0px));display:grid;gap:3rem}
+.memory+.memory{position:relative;padding-top:3rem}
+.memory+.memory::before{content:"";position:absolute;top:0;left:50%;width:min(100%,820px);height:1px;background:var(--line);transform:translateX(-50%)}
+.memory h3{font:500 1.35rem/1.3 var(--f-display);letter-spacing:.04em;text-align:center;margin-bottom:1.4rem}
+.memory .dot{margin-inline:.6em;color:var(--sage-deep)}
+.memory .when{font:italic 400 1.05rem var(--f-italic);letter-spacing:0;color:var(--brown-soft)}
+.strip{display:flex;flex-wrap:wrap;justify-content:center;gap:1.8rem}
+/* plain, straight images with a soft shadow; captions underneath */
+.polaroid{margin:0;width:min(100%,240px)}
+.polaroid img,.polaroid .photo{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:#E9E4DA;border-radius:6px;box-shadow:0 4px 12px rgb(60 40 20/.14)}
+.polaroid.wide{width:min(100%,300px)}
+.polaroid.wide img{aspect-ratio:4/3}
+.polaroid.meme img{aspect-ratio:auto;object-fit:contain;background:#fff}
+.memory .strip{align-items:center}
+.polaroid.empty .photo{display:grid;place-items:center;border:1.5px dashed #CFC6B6;background:#F3EEE5;color:#B5AA98;font:italic 400 1rem var(--f-italic)}
+.polaroid figcaption{padding:.7rem .2rem 0;text-align:center;font:italic 400 1rem/1.3 var(--f-italic);color:var(--brown-soft)}
 .shorts-head{padding-top:5rem;text-align:center}
 .shorts-head h2{font:400 clamp(1.8rem,6vw,2.6rem)/1.15 var(--f-display);letter-spacing:.06em}
 .shorts-head p{margin:.5rem 0 0;color:var(--brown-soft)}
@@ -474,7 +490,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 <!-- ============ PAGE 2: the climb (read from the bottom up) ============ -->
 <div id="tale" hidden>
   <a class="btn home" href="#">&larr; Beginning</a>
-  <nav class="pages" aria-label="More"><a class="btn" href="#shorts">Short videos &rarr;</a><a class="btn" href="#blogs">Blogs &rarr;</a></nav>
+  <nav class="pages" aria-label="More"><a class="btn" href="#shorts">Short videos &rarr;</a><a class="btn" href="#blogs">Blogs &rarr;</a><a class="btn" href="#scrapbook">Scrapbook &rarr;</a></nav>
 
   <!-- the very top: contact -->
   <div class="col top" id="contact">
@@ -679,7 +695,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 <!-- ============ PAGE 3: short videos ============ -->
 <div id="shortsPage" hidden>
   <a class="btn home" href="#tale">&larr; Beanstalk</a>
-  <nav class="pages" aria-label="More"><a class="btn" href="#blogs">Blogs &rarr;</a></nav>
+  <nav class="pages" aria-label="More"><a class="btn" href="#blogs">Blogs &rarr;</a><a class="btn" href="#scrapbook">Scrapbook &rarr;</a></nav>
   <header class="col shorts-head">
     <h2>Short Videos</h2>
     <p>Quick explainers, five minutes or less.</p>
@@ -712,7 +728,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 <!-- ============ PAGE 4: blogs ============ -->
 <div id="blogsPage" hidden>
   <a class="btn home" href="#tale">&larr; Beanstalk</a>
-  <nav class="pages" aria-label="More"><a class="btn" href="#shorts">Short videos &rarr;</a></nav>
+  <nav class="pages" aria-label="More"><a class="btn" href="#shorts">Short videos &rarr;</a><a class="btn" href="#scrapbook">Scrapbook &rarr;</a></nav>
   <header class="col shorts-head">
     <h2>Blogs</h2>
     <p>Longer reads on building agents.</p>
@@ -729,6 +745,37 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
       </div>
     </article>
   </section>
+</div>
+
+<!-- ============ PAGE 5: scrapbook (photos and memes) ============
+     To add a photo: put the image in a "photos" folder next to index.html and replace an empty polaroid with
+     <figure class="polaroid"><img src="photos/your-photo.jpg" alt="what's in the photo" loading="lazy"><figcaption>caption</figcaption></figure>
+     To add a new row, copy a <section class="memory"> block. -->
+<div id="scrapbookPage" hidden>
+  <a class="btn home" href="#tale">&larr; Beanstalk</a>
+  <nav class="pages" aria-label="More"><a class="btn" href="#shorts">Short videos &rarr;</a><a class="btn" href="#blogs">Blogs &rarr;</a></nav>
+  <header class="col shorts-head">
+    <h2>Scrapbook</h2>
+    <p>Photos, memes and moments along the way.</p>
+    <div class="rule" aria-hidden="true"><span></span></div>
+  </header>
+  <div class="memories">
+    <section class="memory">
+      <h3>Memes</h3>
+      <div class="strip">
+        <figure class="polaroid meme" style="width:min(100%,380px)"><img src="photos/meme-langchain-freestyle.jpg" alt="Chat message: Drink some water, you're talking 27 min non-stop. Not even Eminem can rival your expertise in LangChain freestyle rap. Awesome presentation." loading="lazy"><figcaption>Certified LangChain freestyle rapper</figcaption></figure>
+        <figure class="polaroid meme" style="width:min(100%,250px)"><img src="photos/meme-ai-avatar.jpg" alt="YouTube comment under the agent harness video with Harrison Chase: If she wasn't standing next to the man I would have thought she's an AI avatar lol" loading="lazy"><figcaption>Confirmed: not an AI avatar</figcaption></figure>
+      </div>
+    </section>
+    <section class="memory">
+      <h3>Interrupt NYC<span class="dot">&middot;</span><span class="when">Sep 24, 2026</span></h3>
+      <div class="strip">
+        <figure class="polaroid wide"><img src="photos/interrupt-nyc-venue.jpg" alt="The Interrupt26 venue floor with lit Interrupt26 walls and the 26 logo projected on the floor" loading="lazy"><figcaption>The calm before Interrupt26</figcaption></figure>
+        <figure class="polaroid wide"><img src="photos/interrupt-nyc-workshop.jpg" alt="Jess presenting a slide on what the Deep Agents harness adds to a room of attendees with laptops" loading="lazy" style="object-position:70% 40%"><figcaption>Walking through the Deep Agents harness</figcaption></figure>
+        <figure class="polaroid wide"><img src="photos/interrupt-nyc-stage.jpg" alt="Jess speaking at the Interrupt26 podium with a LangChain sticker on her laptop" loading="lazy" style="object-position:50% 30%"><figcaption>Mid-workshop at the podium</figcaption></figure>
+      </div>
+    </section>
+  </div>
 </div>
 
 <script>
@@ -784,10 +831,10 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
   });
 
   /* ---- pages: "#tale" shows the climb, anything else shows the title page ---- */
-  const shorts=document.getElementById("shortsPage"),blogs=document.getElementById("blogsPage");
+  const shorts=document.getElementById("shortsPage"),blogs=document.getElementById("blogsPage"),scrap=document.getElementById("scrapbookPage");
   function route(){
-    const view={"#tale":"tale","#shorts":"shorts","#blogs":"blogs"}[location.hash]||"intro";
-    intro.hidden=view!=="intro";tale.hidden=view!=="tale";shorts.hidden=view!=="shorts";blogs.hidden=view!=="blogs";
+    const view={"#tale":"tale","#shorts":"shorts","#blogs":"blogs","#scrapbook":"scrapbook"}[location.hash]||"intro";
+    intro.hidden=view!=="intro";tale.hidden=view!=="tale";shorts.hidden=view!=="shorts";blogs.hidden=view!=="blogs";scrap.hidden=view!=="scrapbook";
     document.body.classList.remove("step");
     if(view!=="tale")tale.classList.remove("arrive");
     if(view==="intro")walls();

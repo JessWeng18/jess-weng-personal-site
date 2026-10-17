@@ -11,6 +11,17 @@ Each post is a parchment scroll (`<article class="scroll">`) in the "Above the C
 inside that scroll's `<div class="text">`, replacing the placeholder text, and change the title in its `<h3>`. Scrolls alternate left and right automatically and unroll on hover
 (tap on phones). Embeds may only show on the hosted site, not in local previews.
 
+## Adding photos to the Scrapbook
+
+Put image files in a `photos` folder next to `index.html`. In the Scrapbook page, replace an empty polaroid
+(`<figure class="polaroid empty">…</figure>`) with:
+
+```html
+<figure class="polaroid"><img src="photos/your-photo.jpg" alt="what's in the photo" loading="lazy"><figcaption>caption</figcaption></figure>
+```
+
+Each event is one `<section class="memory">` block with a title and date; copy one to start a new row.
+
 ## Adding to the beanstalk
 
 The site has two pages in one file: the title page, and the climb (`#tale`), which opens at the seed
