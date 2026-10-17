@@ -20,6 +20,11 @@
   --line:#DED4C3;
   --parch:#EFE8DA;
   --parch-edge:#DCD0BA;
+  --wood:#BC9B76;
+  --wood-hi:#CDB08C;
+  --wood-lo:#A9875F;
+  --iron:#6E665E;
+  --rivet:#C9C2B8;
   --rod:#7A5438;
   --rod-hi:#A47A57;
   --rod-lo:#4F3423;
@@ -41,6 +46,7 @@
   --lion-light:#EBCD97;
   --mane:#8A5A2B;
   --parrot:#3D7CC9;
+  --cat:#4B4541;
   --parrot-dark:#2A5B9C;
   --parrot-light:#9CC3EA;
   --f-display:"Cinzel","Trajan Pro",Georgia,serif;
@@ -96,16 +102,16 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 @media (max-width:760px){.wall{width:30vw;opacity:calc(var(--wall-fade)*.6)}}
 
 /* ---------- page 2: the climb ---------- */
-.home{position:fixed;z-index:5;top:calc(env(safe-area-inset-top,0px) + 12px);left:12px;background:var(--paper);font-size:.68rem;padding:.5rem .85rem}
-.skip{position:fixed;z-index:5;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:.35rem;
-  padding:.7rem .8rem .6rem;background:var(--paper);border:1px solid var(--line);border-radius:2px;outline:1px solid var(--line);outline-offset:3px;
-  color:var(--brown);font:400 .62rem var(--f-display);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:opacity .4s,transform .4s}
-.skip svg{width:30px;height:46px;color:var(--rod);transition:transform .3s}
-.skip:hover{border-color:var(--sage-deep)}
-.skip:hover svg{transform:translateY(-4px)}
-.skip.away{opacity:0;transform:translateY(10px);pointer-events:none}
+.home{position:fixed;z-index:5;top:calc(env(safe-area-inset-top,0px) + 12px);left:12px;background:var(--paper);font-size:.82rem;padding:.7rem 1.15rem}
+.up-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem;padding-block:1.4rem 3.6rem}
+.up-wrap .up{padding:0}
+.skip{display:inline-flex;align-items:center;gap:.7rem;padding:.75rem 1.3rem;border:1px solid var(--sage-deep);border-radius:2px;background:var(--sage-deep);color:var(--paper);
+  font:400 .78rem var(--f-display);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.skip svg{width:16px;height:24px;color:currentColor;transition:transform .3s}
+.skip:hover{background:var(--brown);border-color:var(--brown)}
+.skip:hover svg{transform:translateY(-3px)}
 .pages{position:fixed;z-index:5;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
-.pages .btn{background:var(--paper);font-size:.68rem;padding:.5rem .85rem}
+.pages .btn{background:var(--paper);font-size:.82rem;padding:.7rem 1.15rem}
 .pages .btn:hover{background:var(--sage-deep)}
 .posts{max-width:820px;margin-inline:auto;display:grid;gap:2.4rem;padding:1.5rem 6px calc(4rem + env(safe-area-inset-bottom,0px))}
 .post{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);background:var(--paper);border:1px solid var(--line);border-radius:2px;outline:1px solid var(--line);outline-offset:4px}
@@ -191,10 +197,11 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .trade h3{font:500 1.05rem/1.35 var(--f-display);letter-spacing:.03em;margin-block:.35rem .2rem}
 .trade .role{margin:0 0 .6rem;font-style:italic;color:var(--brown-soft);font-size:1rem}
 .trade p{margin:0;font-size:1.05rem;color:var(--brown-soft)}
-.trade{display:flex;flex-direction:column;align-items:center}
+/* every card shares the same five rows (industry, name, role, via, dates) so lines align across cards */
+.trade{display:grid;grid-row:span 5;grid-template-rows:subgrid;row-gap:0;justify-items:center;align-items:start}
 .trade .industry{display:inline-block;margin-bottom:.7rem;padding:.3rem .8rem;border:1px solid var(--sage-deep);border-radius:999px;font:400 .66rem var(--f-display);letter-spacing:.16em;text-transform:uppercase;color:var(--sage-deep)}
-.trade .via{margin:-.3rem 0 .5rem;font-size:.88rem;font-style:italic;opacity:.85}
-.trade .date{margin-top:auto;padding-top:.3rem}
+.trade .via{margin:-.3rem 0 .6rem;font-size:.88rem;font-style:italic;opacity:.85}
+.trade .date{align-self:end;padding-top:.3rem}
 .entry.dim{opacity:.35}
 
 /* a little bear (Brown's Bruno) pacing along the top of the Brown leaf */
@@ -240,6 +247,20 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 @keyframes l-jaw{0%{transform:rotate(0)}1.0%{transform:rotate(0)}2.5%,4.5%{transform:rotate(32deg)}6.0%{transform:rotate(0)}25.5%{transform:rotate(0)}27.0%,29.0%{transform:rotate(32deg)}30.5%{transform:rotate(0)}51.5%{transform:rotate(0)}53.0%,55.0%{transform:rotate(32deg)}56.5%{transform:rotate(0)}100%{transform:rotate(0)}}
 @keyframes l-roar{0%{opacity:0;transform:translateY(4px) scale(.7)}1.5%{opacity:0;transform:translateY(4px) scale(.7)}2.5%,5.5%{opacity:1;transform:translateY(-6px) scale(1)}6.5%{opacity:0;transform:translateY(4px) scale(.7)}26.0%{opacity:0;transform:translateY(4px) scale(.7)}27.0%,30.0%{opacity:1;transform:translateY(-6px) scale(1)}31.0%{opacity:0;transform:translateY(4px) scale(.7)}52.0%{opacity:0;transform:translateY(4px) scale(.7)}53.0%,56.0%{opacity:1;transform:translateY(-6px) scale(1)}57.0%{opacity:0;transform:translateY(4px) scale(.7)}100%{opacity:0;transform:translateY(4px) scale(.7)}}
 @keyframes l-tail{from{transform:rotate(-8deg)}to{transform:rotate(10deg)}}
+/* a curious cat sitting on the divider (right of the name, --zl set by script) in front of a faded bookshelf.
+   Every so often it swats at the books and says "meow"; its tail droops down over the edge, swings, and curls back up. 16s loop */
+.perch-line{position:relative;width:min(calc(100% + 40px),calc(100vw - 32px))}
+.cat-zone{position:absolute;left:var(--zl,72%);right:0;bottom:50%;margin-bottom:-1px;height:60px;pointer-events:none}
+.shelf{position:absolute;right:0;bottom:-2px;width:136px;height:58px;opacity:.38}
+.shelf .wobble{transform-box:fill-box;transform-origin:0 100%;animation:c-wobble 16s ease-in-out infinite}
+.cat{position:absolute;bottom:0;right:44px;width:50px;height:34px;overflow:visible}
+.cat .s-paw{transform-box:view-box;transform-origin:33.5px 13.5px;animation:c-swat 16s ease-in-out infinite}
+.cat .s-head{transform-box:view-box;transform-origin:25px 9px;animation:c-tilt 16s ease-in-out infinite}
+.meow{position:absolute;right:58px;bottom:52px;font:italic 400 .95rem var(--f-italic);color:var(--brown-soft);opacity:0;animation:c-meow 16s ease-out infinite}
+@keyframes c-swat{0%,8%,26%,62%,76%,100%{transform:rotate(0)}10%,15%,20%,64%,70%{transform:rotate(-150deg)}12.5%,17.5%,22.5%,67%,73%{transform:rotate(-100deg)}}
+@keyframes c-wobble{0%,10.5%,13%,20.5%,23%,64.5%,67%,100%{transform:rotate(0)}11.5%,21.5%,65.5%{transform:rotate(-7deg)}12.2%,22.2%,66.2%{transform:rotate(3deg)}}
+@keyframes c-tilt{0%,34%,46%,84%,95%,100%{transform:rotate(0)}36%,44%{transform:rotate(-12deg)}86%,93%{transform:rotate(-10deg)}}
+@keyframes c-meow{0%,35%,46%,85%,95%,100%{opacity:0;transform:translateY(4px) scale(.8)}37%,43%,87%,92%{opacity:1;transform:translateY(-4px) scale(1)}}
 /* start the bear's loop just before its wave, so visitors see it wave first */
 .bear,.bear .b-rear,.bear .paw{animation-delay:-4s}
 
@@ -301,6 +322,33 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .scroll.open .body .text{opacity:1}
 .scroll.open .hint{opacity:0}
 
+/* talks and webinars: a weathered three-plank tavern sign with riveted iron straps, hung on iron chains.
+   Unfolding drops an aged paper notice below it. */
+.scroll.event{padding-bottom:0;margin-top:30px;transform-origin:50% -30px}
+.event .rod{display:none}
+.scroll.event::before,.scroll.event::after{content:"";position:absolute;top:-30px;width:6px;height:34px;z-index:0;
+  background:radial-gradient(ellipse 2.2px 3.4px at 50% 50%,#0000 52%,var(--iron) 58% 88%,#0000 94%) 0 0/6px 7px repeat-y}
+.scroll.event::before{left:17%}.scroll.event::after{right:17%}
+.event>.sheet{position:relative;z-index:1;margin-inline:0;color:#3E2A18;
+  clip-path:polygon(0 6%,2% 0,24% 1.5%,52% 0,77% 1%,98% 0,100% 7%,99.4% 48%,100% 93%,97.5% 100%,70% 98.8%,41% 100%,12% 99%,1.5% 100%,0 92%,.7% 52%);
+  background:
+    radial-gradient(circle at 19px 13px,var(--rivet) 0 2.6px,#0000 3.2px),radial-gradient(circle at calc(100% - 19px) 13px,var(--rivet) 0 2.6px,#0000 3.2px),
+    radial-gradient(circle at 19px calc(100% - 13px),var(--rivet) 0 2.6px,#0000 3.2px),radial-gradient(circle at calc(100% - 19px) calc(100% - 13px),var(--rivet) 0 2.6px,#0000 3.2px),
+    linear-gradient(90deg,#0000 13px,var(--iron) 13px 25px,#0000 25px calc(100% - 25px),var(--iron) calc(100% - 25px) calc(100% - 13px),#0000 calc(100% - 13px)),
+    repeating-linear-gradient(180deg,#0000 0 calc(33.333% - 2px),rgb(80 50 25/.28) calc(33.333% - 2px) calc(33.333% - 1px),rgb(255 245 225/.25) calc(33.333% - 1px) 33.333%),
+    radial-gradient(ellipse 14px 5px at 68% 70%,rgb(90 55 25/.22),#0000 70%),radial-gradient(ellipse 10px 4px at 30% 22%,rgb(90 55 25/.18),#0000 70%),
+    repeating-linear-gradient(179deg,rgb(255 248 230/.12) 0 1px,#0000 1px 5px,rgb(90 55 25/.08) 5px 6px,#0000 6px 12px),
+    linear-gradient(var(--wood-hi),var(--wood) 50%,var(--wood-lo))}
+.event .label{padding-inline:2.2rem}
+.event .label h3{color:#3B2615;text-shadow:0 1px 0 rgb(255 242 220/.5),0 -1px 0 rgb(60 35 15/.18)}
+.event .label .tag{color:#5C4129}
+.event .label .hint{color:#4C6140}
+.event .drop{top:100%}
+.event .body.sheet{margin:0 14px;border-radius:0 0 2px 2px;background:linear-gradient(90deg,var(--parch-edge),var(--parch) 8%,var(--parch) 92%,var(--parch-edge));box-shadow:0 6px 10px rgb(60 40 20/.2)}
+.event .body .text{padding-top:1.1rem}
+@media (hover:hover){.scroll.event:hover{animation:swing 1.6s ease-in-out}}
+@keyframes swing{25%{transform:rotate(1.8deg)}55%{transform:rotate(-1.2deg)}80%{transform:rotate(.5deg)}}
+
 /* casual variant: a pinned, tilted note on lined paper with a torn edge (for lighter posts) */
 .scroll.note{padding-bottom:0;transform:rotate(-2deg);transition:transform .4s ease,opacity .5s}
 .scroll.note.r{transform:rotate(2.2deg)}
@@ -341,7 +389,35 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
   <svg class="wall left" id="wallL" aria-hidden="true"></svg>
   <svg class="wall right" id="wallR" aria-hidden="true"></svg>
   <h1>Jess Weng</h1>
-  <div class="rule" aria-hidden="true"><span></span></div>
+  <div class="rule perch-line" aria-hidden="true"><span></span><div class="cat-zone"><em class="meow">meow</em><svg class="shelf" viewBox="0 0 136 58">
+        <g>
+          <rect x="4" y="47" width="22" height="7" rx="1" fill="#A88B6E"/>
+          <rect x="6" y="40" width="19" height="7" rx="1" fill="#8FA383"/>
+          <rect x="7.5" y="34" width="16" height="6" rx="1" fill="#B9776B"/>
+          <rect x="28" y="22" width="8" height="32" rx="1" fill="#5F7393"/>
+          <rect x="37" y="28" width="6" height="26" rx="1" fill="#D2B06A"/>
+          <rect x="46" y="20" width="8" height="34" rx="1" fill="#8FA383"/>
+          <rect x="55" y="14" width="9" height="40" rx="1" fill="#B9776B"/>
+          <rect x="65" y="24" width="7" height="30" rx="1" fill="#D2B06A"/>
+          <rect class="wobble" x="73" y="12" width="9" height="42" rx="1" fill="#5F7393"/>
+          <rect x="83" y="18" width="8" height="36" rx="1" fill="#A88B6E"/>
+          <rect x="92" y="22" width="10" height="32" rx="1" fill="#8FA383"/>
+          <rect x="106" y="26" width="8" height="28" rx="1" fill="#B9776B" transform="rotate(14 106 54)"/>
+          <rect x="118" y="16" width="9" height="38" rx="1" fill="#D2B06A"/>
+          <rect x="1" y="54" width="134" height="4" rx="1" fill="var(--rod)"/>
+          <rect x="4" y="56" width="4" height="2" fill="var(--rod-lo)"/><rect x="128" y="56" width="4" height="2" fill="var(--rod-lo)"/>
+        </g>
+      </svg><svg class="cat" viewBox="0 0 50 34"><g class="pose-sit">
+      <path class="s-tail" d="M35.5 32.5C43 32.5 45 24 41.5 17.5" fill="none" stroke="var(--cat)" stroke-width="2.8" stroke-linecap="round">
+        <animate attributeName="d" dur="16s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.0138;0.0275;0.0413;0.055;0.0688;0.0825;0.0963;0.11;0.1237;0.1375;0.1512;0.165;0.1787;0.1925;0.2062;0.22;0.2338;0.2475;0.2612;0.275;0.2888;0.3025;0.3162;0.33;0.3438;0.3575;0.3713;0.385;0.3987;0.4125;0.4263;0.44;0.445;0.45;0.455;0.46;0.465;0.47;0.475;0.48;0.485;0.49;0.495;0.5;0.505;0.51;0.515;0.52;0.525;0.53;0.535;0.54;0.545;0.55;0.555;0.56;0.5671;0.5742;0.5813;0.5883;0.5954;0.6025;0.6096;0.6167;0.6238;0.6308;0.6379;0.645;0.6521;0.6592;0.6663;0.6733;0.6804;0.6875;0.6946;0.7017;0.7087;0.7158;0.7229;0.73;0.7371;0.7442;0.7512;0.7583;0.7654;0.7725;0.7796;0.7867;0.7938;0.8008;0.8079;0.815;0.8221;0.8292;0.8363;0.8433;0.8504;0.8575;0.8646;0.8717;0.8788;0.8858;0.8929;0.9;0.9042;0.9083;0.9125;0.9167;0.9208;0.925;0.9292;0.9333;0.9375;0.9417;0.9458;0.95;0.9542;0.9583;0.9625;0.9667;0.9708;0.975;0.9792;0.9833;0.9875;0.9917;0.9958;1" values="M35.50 32.50C43.00 32.50 45.00 24.00 41.50 17.50;M35.50 32.50C43.02 32.46 45.06 23.96 41.60 17.46;M35.50 32.50C43.07 32.35 45.22 23.85 41.87 17.35;M35.50 32.50C43.15 32.19 45.46 23.69 42.27 17.19;M35.50 32.50C43.25 32.00 45.75 23.50 42.75 17.00;M35.50 32.50C43.35 31.81 46.04 23.31 43.23 16.81;M35.50 32.50C43.43 31.65 46.28 23.15 43.63 16.65;M35.50 32.50C43.48 31.54 46.44 23.04 43.90 16.54;M35.50 32.50C43.50 31.50 46.50 23.00 44.00 16.50;M35.50 32.50C43.48 31.54 46.44 23.04 43.90 16.54;M35.50 32.50C43.43 31.65 46.28 23.15 43.63 16.65;M35.50 32.50C43.35 31.81 46.04 23.31 43.23 16.81;M35.50 32.50C43.25 32.00 45.75 23.50 42.75 17.00;M35.50 32.50C43.15 32.19 45.46 23.69 42.27 17.19;M35.50 32.50C43.07 32.35 45.22 23.85 41.87 17.35;M35.50 32.50C43.02 32.46 45.06 23.96 41.60 17.46;M35.50 32.50C43.00 32.50 45.00 24.00 41.50 17.50;M35.50 32.50C43.02 32.46 45.06 23.96 41.60 17.46;M35.50 32.50C43.07 32.35 45.22 23.85 41.87 17.35;M35.50 32.50C43.15 32.19 45.46 23.69 42.27 17.19;M35.50 32.50C43.25 32.00 45.75 23.50 42.75 17.00;M35.50 32.50C43.35 31.81 46.04 23.31 43.23 16.81;M35.50 32.50C43.43 31.65 46.28 23.15 43.63 16.65;M35.50 32.50C43.48 31.54 46.44 23.04 43.90 16.54;M35.50 32.50C43.50 31.50 46.50 23.00 44.00 16.50;M35.50 32.50C43.48 31.54 46.44 23.04 43.90 16.54;M35.50 32.50C43.43 31.65 46.28 23.15 43.63 16.65;M35.50 32.50C43.35 31.81 46.04 23.31 43.23 16.81;M35.50 32.50C43.25 32.00 45.75 23.50 42.75 17.00;M35.50 32.50C43.15 32.19 45.46 23.69 42.27 17.19;M35.50 32.50C43.07 32.35 45.22 23.85 41.87 17.35;M35.50 32.50C43.02 32.46 45.06 23.96 41.60 17.46;M35.50 32.50C43.00 32.50 45.00 24.00 41.50 17.50;M35.49 32.50C42.99 32.51 45.01 24.05 41.54 17.56;M35.44 32.52C42.97 32.56 45.05 24.23 41.69 17.75;M35.36 32.55C42.92 32.65 45.13 24.58 42.00 18.11;M35.23 32.60C42.86 32.81 45.29 25.15 42.54 18.71;M35.04 32.67C42.76 33.04 45.52 26.00 43.34 19.60;M34.77 32.77C42.61 33.34 45.78 27.14 44.34 20.80;M34.42 32.88C42.37 33.68 46.00 28.52 45.34 22.30;M34.00 33.00C42.00 34.00 46.00 30.00 46.00 24.00;M33.49 33.13C41.48 34.26 45.76 31.62 46.24 25.85;M32.89 33.27C40.80 34.48 45.32 33.43 46.18 27.91;M32.21 33.41C39.98 34.72 44.60 35.29 45.65 30.27;M31.50 33.50C39.00 35.00 43.50 37.00 44.50 33.00;M30.77 33.55C37.90 35.34 41.96 38.52 42.51 36.47;M30.01 33.56C36.69 35.71 40.08 39.90 39.87 40.40;M29.25 33.54C35.39 36.10 38.04 41.08 37.06 43.96;M28.50 33.50C34.00 36.50 36.00 42.00 34.50 46.50;M27.71 33.42C32.40 36.94 33.81 42.67 32.05 47.91;M26.91 33.30C30.69 37.39 31.53 43.14 29.66 48.64;M26.22 33.20C29.19 37.79 29.55 43.47 27.62 49.00;M25.70 33.11C28.04 38.09 28.03 43.69 26.07 49.19;M25.35 33.05C27.26 38.30 27.00 43.83 25.03 49.31;M25.14 33.02C26.79 38.42 26.39 43.93 24.41 49.41;M25.03 33.00C26.57 38.48 26.09 43.98 24.09 49.47;M25.00 33.00C26.50 38.50 26.00 44.00 24.00 49.50;M25.00 33.00C26.66 38.34 26.96 43.68 26.08 49.18;M25.00 33.00C26.80 38.20 27.81 43.40 27.93 48.90;M25.00 33.00C26.91 38.09 28.47 43.18 29.35 48.68;M25.00 33.00C26.98 38.02 28.86 43.05 30.20 48.55;M25.00 33.00C26.99 38.01 28.95 43.02 30.38 48.52;M25.00 33.00C26.95 38.05 28.72 43.09 29.89 48.59;M25.00 33.00C26.87 38.13 28.21 43.26 28.78 48.76;M25.00 33.00C26.74 38.26 27.46 43.51 27.17 49.01;M25.00 33.00C26.59 38.41 26.57 43.81 25.23 49.31;M25.00 33.00C26.06 38.44 25.37 43.87 23.30 49.31;M25.00 33.00C25.01 38.29 23.86 43.57 21.65 48.86;M25.00 33.00C24.12 38.16 22.60 43.32 20.26 48.48;M25.00 33.00C23.49 38.07 21.70 43.14 19.27 48.21;M25.00 33.00C23.18 38.03 21.26 43.05 18.79 48.08;M25.00 33.00C23.23 38.03 21.33 43.07 18.86 48.10;M25.00 33.00C23.62 38.09 21.89 43.18 19.48 48.27;M25.00 33.00C24.31 38.19 22.88 43.38 20.57 48.56;M25.00 33.00C25.24 38.32 24.19 43.64 22.01 48.96;M25.00 33.00C26.28 38.47 25.69 43.94 23.66 49.41;M25.00 33.00C26.62 38.38 26.73 43.76 25.58 49.26;M25.00 33.00C26.76 38.24 27.56 43.48 27.37 48.98;M25.00 33.00C26.87 38.13 28.22 43.26 28.80 48.76;M25.00 33.00C26.94 38.06 28.64 43.12 29.71 48.62;M25.00 33.00C26.96 38.04 28.77 43.08 30.01 48.58;M25.00 33.00C26.94 38.06 28.62 43.13 29.67 48.63;M25.00 33.00C26.86 38.14 28.19 43.27 28.74 48.77;M25.00 33.00C26.75 38.25 27.53 43.49 27.31 48.99;M25.00 33.00C26.62 38.38 26.71 43.76 25.54 49.26;M25.00 33.00C26.29 38.47 25.70 43.94 23.67 49.41;M25.00 33.00C25.29 38.33 24.27 43.65 22.09 48.98;M25.00 33.00C24.42 38.20 23.02 43.40 20.72 48.61;M25.00 33.00C23.77 38.11 22.10 43.22 19.71 48.33;M25.00 33.00C23.42 38.06 21.60 43.12 19.16 48.18;M25.00 33.00C23.40 38.06 21.57 43.11 19.13 48.17;M25.00 33.00C23.70 38.10 22.01 43.20 19.61 48.30;M25.00 33.00C24.30 38.19 22.86 43.37 20.55 48.56;M25.00 33.00C25.13 38.30 24.04 43.61 21.85 48.91;M25.00 33.00C26.10 38.44 25.42 43.88 23.37 49.33;M25.00 33.00C26.59 38.41 26.51 43.83 25.11 49.33;M25.00 33.00C26.72 38.28 27.31 43.56 26.84 49.06;M25.00 33.00C26.83 38.17 27.97 43.34 28.26 48.84;M25.00 33.00C26.90 38.10 28.41 43.20 29.22 48.70;M25.00 33.00C26.93 38.07 28.59 43.14 29.61 48.64;M25.00 33.00C26.92 38.08 28.50 43.17 29.42 48.67;M25.00 33.00C26.86 38.14 28.14 43.29 28.64 48.79;M25.00 33.00C26.76 38.24 27.56 43.48 27.39 48.98;M25.00 33.00C26.64 38.36 26.82 43.73 25.78 49.23;M25.00 33.00C26.50 38.50 26.00 44.00 24.00 49.50;M25.03 33.00C26.57 38.48 26.09 43.98 24.09 49.47;M25.14 33.02C26.79 38.42 26.39 43.93 24.41 49.41;M25.35 33.05C27.26 38.30 27.00 43.83 25.03 49.31;M25.70 33.11C28.04 38.09 28.03 43.69 26.07 49.19;M26.22 33.20C29.19 37.79 29.55 43.47 27.62 49.00;M26.91 33.30C30.69 37.39 31.53 43.14 29.66 48.64;M27.71 33.42C32.40 36.94 33.81 42.67 32.05 47.91;M28.50 33.50C34.00 36.50 36.00 42.00 34.50 46.50;M29.25 33.54C35.39 36.10 38.04 41.08 37.06 43.96;M30.01 33.56C36.69 35.71 40.08 39.90 39.87 40.40;M30.77 33.55C37.90 35.34 41.96 38.52 42.51 36.47;M31.50 33.50C39.00 35.00 43.50 37.00 44.50 33.00;M32.21 33.41C39.98 34.72 44.60 35.29 45.65 30.27;M32.89 33.27C40.80 34.48 45.32 33.43 46.18 27.91;M33.49 33.13C41.48 34.26 45.76 31.62 46.24 25.85;M34.00 33.00C42.00 34.00 46.00 30.00 46.00 24.00;M34.42 32.88C42.37 33.68 46.00 28.52 45.34 22.30;M34.77 32.77C42.61 33.34 45.78 27.14 44.34 20.80;M35.04 32.67C42.76 33.04 45.52 26.00 43.34 19.60;M35.23 32.60C42.86 32.81 45.29 25.15 42.54 18.71;M35.36 32.55C42.92 32.65 45.13 24.58 42.00 18.11;M35.44 32.52C42.97 32.56 45.05 24.23 41.69 17.75;M35.49 32.50C42.99 32.51 45.01 24.05 41.54 17.56;M35.50 32.50C43.00 32.50 45.00 24.00 41.50 17.50"/>
+      </path>
+      <path d="M15.5 34C10.5 34 10 26 12.8 20.5 14.8 16.5 17.5 14 18.6 9.5H31.4C32.5 14 35.2 16.5 37.2 20.5 40 26 39.5 34 34.5 34Z" fill="var(--cat)"/>
+      <g class="s-head">
+        <path d="M18.6 2 19.4-7 24.2-1.5ZM25.8-1.5 30.6-7 31.4 2Z" fill="var(--cat)"/>
+        <ellipse cx="25" cy="3.5" rx="7.4" ry="6.6" fill="var(--cat)"/>
+      </g>
+      <g class="s-paw"><rect x="31.6" y="12.5" width="3.8" height="12" rx="1.9" fill="var(--cat)" style="filter:brightness(1.18)"/></g>
+    </g></svg></div></div>
   <p class="tagline">Curiosity killed the cat, but satisfaction brought it back.</p>
   <a class="btn solid next" href="#tale">Next &rarr;</a>
 </main>
@@ -350,10 +426,6 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 <div id="tale" hidden>
   <a class="btn home" href="#">&larr; Beginning</a>
   <nav class="pages" aria-label="More"><a class="btn" href="#shorts">Short form content &rarr;</a><a class="btn" href="#blogs">Blogs &rarr;</a></nav>
-  <button class="skip" id="skip" type="button" aria-label="Skip to the present day">
-    <svg viewBox="0 0 30 46" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 2v42M23 2v42"/><path d="M7 9h16M7 18h16M7 27h16M7 36h16" stroke-width="2"/></g></svg>
-    Present day
-  </button>
 
   <!-- the very top: contact -->
   <div class="col top" id="contact">
@@ -388,10 +460,10 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 
       <!-- LinkedIn posts and talks, as scrolls. To add a LinkedIn post: on LinkedIn, open the post, "..." menu,
            "Embed this post", copy the <iframe>, and paste it inside a scroll's <div class="text">. -->
-      <article class="scroll">
+      <article class="scroll event">
         <div class="rod" aria-hidden="true"></div>
         <div class="sheet">
-          <button class="label" aria-expanded="false"><span class="tag">Invited talk<span class="dot">&middot;</span>Oct 19, 2026</span><h3>Global AI Builder Series</h3><span class="hint"><span class="hov">Hover to unroll</span><span class="tap">Tap to unroll</span></span></button>
+          <button class="label" aria-expanded="false"><span class="tag">Invited talk<span class="dot">&middot;</span>Oct 19, 2026</span><h3>Global AI Builder Series</h3><span class="hint"><span class="hov">Hover to read</span><span class="tap">Tap to read</span></span></button>
         </div>
         <div class="drop">
           <div class="body sheet"><div><div class="text">
@@ -403,10 +475,10 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
         </div>
       </article>
 
-      <article class="scroll">
+      <article class="scroll event">
         <div class="rod" aria-hidden="true"></div>
         <div class="sheet">
-          <button class="label" aria-expanded="false"><span class="tag">Invited talk<span class="dot">&middot;</span>Oct 13, 2026</span><h3>O&rsquo;Reilly Expert Showcase:<br>Agent Memory</h3><span class="hint"><span class="hov">Hover to unroll</span><span class="tap">Tap to unroll</span></span></button>
+          <button class="label" aria-expanded="false"><span class="tag">Invited talk<span class="dot">&middot;</span>Oct 13, 2026</span><h3>O&rsquo;Reilly Expert Showcase:<br>Agent Memory</h3><span class="hint"><span class="hov">Hover to read</span><span class="tap">Tap to read</span></span></button>
         </div>
         <div class="drop">
           <div class="body sheet"><div><div class="text">
@@ -419,10 +491,10 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
         </div>
       </article>
 
-      <article class="scroll">
+      <article class="scroll event">
         <div class="rod" aria-hidden="true"></div>
         <div class="sheet">
-          <button class="label" aria-expanded="false"><span class="tag">Webinar<span class="dot">&middot;</span>Sep 17, 2026</span><h3>Agent Harnesses &amp; Deep Agents 101</h3><span class="hint"><span class="hov">Hover to unroll</span><span class="tap">Tap to unroll</span></span></button>
+          <button class="label" aria-expanded="false"><span class="tag">Webinar<span class="dot">&middot;</span>Sep 17, 2026</span><h3>Agent Harnesses &amp; Deep Agents 101</h3><span class="hint"><span class="hov">Hover to read</span><span class="tap">Tap to read</span></span></button>
         </div>
         <div class="drop">
           <div class="body sheet"><div><div class="text">
@@ -524,7 +596,13 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
     </div>
   </section>
 
-  <p class="up"><span aria-hidden="true">&uarr;</span> Scroll up to climb</p>
+  <div class="up-wrap">
+    <p class="up"><span aria-hidden="true">&uarr;</span> Scroll up to climb</p>
+  <button class="skip" id="skip" type="button">
+    <svg viewBox="0 0 30 46" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 2v42M23 2v42"/><path d="M7 9h16M7 18h16M7 27h16M7 36h16" stroke-width="2"/></g></svg>
+    Skip to the present day
+  </button>
+  </div>
 
   <!-- the soil: apprenticeships (internships) are the roots under the seed -->
   <div class="soil">
@@ -536,9 +614,9 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
         <p>The roots: the foundation and strength behind the beanstalk.</p>
       </div>
       <div class="trades">
-        <article class="trade"><span class="industry">Fashion &amp; art</span><h3>Virgil Abloh Foundation</h3><p class="role">Partnerships &amp; strategy</p><p class="via">via Align Communications &amp; Creative</p><span class="date">May – Aug 2025</span></article>
-        <article class="trade"><span class="industry">Consumer goods</span><h3>The Vita Coco Company</h3><p class="role">Consumer insights</p><span class="date">Jan – May 2025</span></article>
-        <article class="trade"><span class="industry">Biotech &amp; healthcare</span><h3>Regeneron Pharmaceuticals</h3><p class="role">Data analytics</p><span class="date">Jan – May 2025</span></article>
+        <article class="trade"><span class="industry">Fashion &amp; art</span><h3>Virgil Abloh<br>Foundation</h3><p class="role">Partnerships &amp; Strategy</p><p class="via">via Align Communications &amp; Creative</p><span class="date">May – Aug 2025</span></article>
+        <article class="trade"><span class="industry">Consumer goods</span><h3>The Vita Coco<br>Company</h3><p class="role">Consumer Insights</p><p class="via"></p><span class="date">Jan – May 2025</span></article>
+        <article class="trade"><span class="industry">Biotech &amp; healthcare</span><h3>Regeneron<br>Pharmaceuticals</h3><p class="role">Data Analytics</p><p class="via"></p><span class="date">Jan – May 2025</span></article>
       </div>
     </section>
   </div>
@@ -550,7 +628,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
   <nav class="pages" aria-label="More"><a class="btn" href="#blogs">Blogs &rarr;</a></nav>
   <header class="col shorts-head">
     <h2>Short Form Content</h2>
-    <p>Quick explainers, two minutes or less.</p>
+    <p>Quick explainers, five minutes or less.</p>
     <div class="rule" aria-hidden="true"><span></span></div>
   </header>
   <section class="board" aria-label="Short videos">
@@ -613,6 +691,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
   const entries=[...stalk.querySelectorAll(".entry,.scroll")];
   entries.slice().reverse().forEach((e,i)=>e.classList.add(i%2?"r":"l"));
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce)document.querySelectorAll(".cat animate").forEach(a=>a.remove());
   let main,twist,L1=0,L2=0,H=1,leaves=[],samples=[];
 
   function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
@@ -634,7 +713,16 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
     }
     svgEl.innerHTML=out;
   }
-  const walls=()=>{if(intro.hidden)return;drawWall(document.getElementById("wallL"),9973,false);drawWall(document.getElementById("wallR"),4271,true)};
+  // the cat stays on the part of the divider to the right of the last letter of the name
+  const line=intro.querySelector(".perch-line"), nameEl=intro.querySelector("h1");
+  function catZone(){
+    if(intro.hidden||!line)return;
+    const r=document.createRange();r.selectNodeContents(nameEl);
+    const end=r.getBoundingClientRect().right, box=line.getBoundingClientRect();
+    const zl=Math.min(end-box.left+40,box.width-175);   // a clear gap after the last letter, but always room for cat + shelf
+    line.style.setProperty("--zl",zl+"px");
+  }
+  const walls=()=>{if(intro.hidden)return;catZone();drawWall(document.getElementById("wallL"),9973,false);drawWall(document.getElementById("wallR"),4271,true)};
   walls();
   addEventListener("resize",walls);
 
@@ -655,7 +743,6 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
     if(view==="intro")walls();
     if(view==="tale"){
       build();
-      requestAnimationFrame(()=>requestAnimationFrame(skipVis));
       // open at the bottom of the beanstalk
       requestAnimationFrame(()=>{const sb=stalk.querySelector(".seed").getBoundingClientRect().bottom;window.scrollTo({top:scrollY+sb-innerHeight*0.7,behavior:"instant"})});
     }else{
@@ -673,8 +760,6 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
   /* ---- "present day" ladder: jump to the top of the beanstalk ---- */
   const skip=document.getElementById("skip");
   skip.addEventListener("click",()=>window.scrollTo({top:0,behavior:reduce?"instant":"smooth"}));
-  const skipVis=()=>skip.classList.toggle("away",scrollY<innerHeight*.5);
-  addEventListener("scroll",skipVis,{passive:true});
 
   /* ---- the vine ---- */
   function build(){
@@ -736,7 +821,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
   let raf=0;
   addEventListener("scroll",()=>{if(!raf)raf=requestAnimationFrame(()=>{raf=0;update()})},{passive:true});
   let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(build,150)});
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(build);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{build();catZone()});
   route();
 })();
 </script>
