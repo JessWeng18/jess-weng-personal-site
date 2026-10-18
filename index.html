@@ -111,6 +111,11 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .skip svg{width:16px;height:24px;color:currentColor;transition:transform .3s}
 .skip:hover{background:var(--brown);border-color:var(--brown)}
 .skip:hover svg{transform:translateY(-3px)}
+.menu-btn{display:none;position:fixed;z-index:6;top:calc(env(safe-area-inset-top,0px) + 10px);right:10px;width:40px;height:40px;place-items:center;padding:0;border:1px solid var(--sage-deep);border-radius:50%;background:var(--paper);color:var(--sage-deep);cursor:pointer;box-shadow:0 3px 10px rgb(60 40 20/.14)}
+.menu-btn svg{width:18px;height:18px}
+.menu-btn .x{display:none}
+body.menu-open .menu-btn .bars{display:none}
+body.menu-open .menu-btn .x{display:block}
 .pages{position:fixed;z-index:5;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
 .pages .btn{background:var(--paper);font-size:.82rem;padding:.7rem 1.15rem}
 .pages .btn:hover{background:var(--sage-deep)}
@@ -435,10 +440,24 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
   background:radial-gradient(circle at 35% 35%,#fff8 0 2px,var(--pin) 3px 60%,#0004);box-shadow:0 2px 2px rgb(0 0 0/.3)}
 
 @media (max-width:760px){
-  .stalk{gap:3.5rem}
+  .stalk{gap:5.5rem}
   .stalk>.l,.stalk>.r{width:calc(100% - 52px);align-self:flex-end}
   .cloud,.seed{align-self:flex-start}
   .trades{grid-template-columns:1fr;gap:2rem}
+}
+/* phones: one slim fixed bar across the top instead of stacked buttons over the content; cards open in place instead of overlapping */
+@media (max-width:760px){
+  .menu-btn{display:grid}
+  body:has(#intro:not([hidden])) .menu-btn{display:none}
+  .home,.pages{display:none}
+  body.menu-open .home,body.menu-open .pages{display:flex}
+  body.menu-open .home{left:auto;right:10px;top:calc(env(safe-area-inset-top,0px) + 58px)}
+  body.menu-open .pages{right:10px;top:calc(env(safe-area-inset-top,0px) + 58px + 2.6rem);gap:.4rem}
+  .home,.pages .btn{font-size:.66rem;letter-spacing:.12em;padding:.6rem .85rem;box-shadow:0 4px 12px rgb(60 40 20/.14)}
+  .seed{align-self:stretch;text-align:left}
+  .top,.shorts-head{padding-top:4.2rem}
+  .scroll .drop,.event .drop,.note .drop{position:static}
+  .stalk>.scroll{width:calc(100% - 66px);margin-right:14px}  /* room for the rod ends */
 }
 @media (prefers-reduced-motion:reduce){
   .bear{left:65%}
@@ -453,6 +472,8 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 
 </head>
 <body>
+
+<button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false"><svg class="bars" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 4.5h14M2 9h14M2 13.5h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg class="x" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
 
 <!-- ============ PAGE 1: title page ============ -->
 <main class="col intro" id="intro">
@@ -494,8 +515,8 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 
 <!-- ============ PAGE 2: the climb (read from the bottom up) ============ -->
 <div id="tale" hidden>
-  <a class="btn home" href="#">&larr; Beginning</a>
-  <nav class="pages" aria-label="More"><a class="btn" href="#shorts">Short videos &rarr;</a><a class="btn" href="#blogs">Blogs &rarr;</a><a class="btn" href="#scrapbook">Scrapbook &rarr;</a></nav>
+  <a class="btn home" href="#"><span class="arr">&larr;&nbsp;</span>Beginning</a>
+  <nav class="pages" aria-label="More"><a class="btn" href="#shorts"><span class="lg">Short </span>videos<span class="arr"> &rarr;</span></a><a class="btn" href="#blogs">Blogs<span class="arr"> &rarr;</span></a><a class="btn" href="#scrapbook">Scrapbook<span class="arr"> &rarr;</span></a></nav>
 
   <!-- the very top: contact -->
   <div class="col top" id="contact">
@@ -699,8 +720,8 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 
 <!-- ============ PAGE 3: short videos ============ -->
 <div id="shortsPage" hidden>
-  <a class="btn home" href="#tale">&larr; Beanstalk</a>
-  <nav class="pages" aria-label="More"><a class="btn" href="#blogs">Blogs &rarr;</a><a class="btn" href="#scrapbook">Scrapbook &rarr;</a></nav>
+  <a class="btn home" href="#tale"><span class="arr">&larr;&nbsp;</span>Beanstalk</a>
+  <nav class="pages" aria-label="More"><a class="btn" href="#blogs">Blogs<span class="arr"> &rarr;</span></a><a class="btn" href="#scrapbook">Scrapbook<span class="arr"> &rarr;</span></a></nav>
   <header class="col shorts-head">
     <h2>Short Videos</h2>
     <p>Quick explainers, five minutes or less.</p>
@@ -732,8 +753,8 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 
 <!-- ============ PAGE 4: blogs ============ -->
 <div id="blogsPage" hidden>
-  <a class="btn home" href="#tale">&larr; Beanstalk</a>
-  <nav class="pages" aria-label="More"><a class="btn" href="#shorts">Short videos &rarr;</a><a class="btn" href="#scrapbook">Scrapbook &rarr;</a></nav>
+  <a class="btn home" href="#tale"><span class="arr">&larr;&nbsp;</span>Beanstalk</a>
+  <nav class="pages" aria-label="More"><a class="btn" href="#shorts"><span class="lg">Short </span>videos<span class="arr"> &rarr;</span></a><a class="btn" href="#scrapbook">Scrapbook<span class="arr"> &rarr;</span></a></nav>
   <header class="col shorts-head">
     <h2>Blogs</h2>
     <p>Longer reads on building agents.</p>
@@ -757,8 +778,8 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
      <figure class="polaroid"><img src="photos/your-photo.jpg" alt="what's in the photo" loading="lazy"><figcaption>caption</figcaption></figure>
      To add a new row, copy a <section class="memory"> block. -->
 <div id="scrapbookPage" hidden>
-  <a class="btn home" href="#tale">&larr; Beanstalk</a>
-  <nav class="pages" aria-label="More"><a class="btn" href="#shorts">Short videos &rarr;</a><a class="btn" href="#blogs">Blogs &rarr;</a></nav>
+  <a class="btn home" href="#tale"><span class="arr">&larr;&nbsp;</span>Beanstalk</a>
+  <nav class="pages" aria-label="More"><a class="btn" href="#shorts"><span class="lg">Short </span>videos<span class="arr"> &rarr;</span></a><a class="btn" href="#blogs">Blogs<span class="arr"> &rarr;</span></a></nav>
   <header class="col shorts-head">
     <h2>Scrapbook</h2>
     <p>Photos, memes and moments along the way</p>
@@ -853,6 +874,11 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
     }
   }
   addEventListener("hashchange",route);
+  const menuBtn=document.querySelector(".menu-btn");
+  const setMenu=o=>{document.body.classList.toggle("menu-open",o);menuBtn.setAttribute("aria-expanded",o)};
+  menuBtn.addEventListener("click",e=>{e.stopPropagation();setMenu(!document.body.classList.contains("menu-open"))});
+  document.addEventListener("click",e=>{if(!e.target.closest(".home,.pages,.menu-btn"))setMenu(false)});
+  addEventListener("hashchange",()=>setMenu(false));
 
   /* ---- scrolls: hover unrolls (CSS); click/tap/keyboard toggles ---- */
   document.querySelectorAll(".scroll .label").forEach(b=>b.addEventListener("click",()=>{
@@ -895,6 +921,16 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
     const cx=narrow?20:W/2, amp=narrow?8:26;
     // points from bottom (seed) to top (cloud)
     const seed=stalk.querySelector(".seed"), cloud=stalk.querySelector(".cloud");
+    const ground=seed.querySelector("svg"),gp=ground.querySelector("path"),ge=ground.querySelector("ellipse");
+    if(narrow){
+      const vw=document.documentElement.clientWidth,off=stalk.getBoundingClientRect().left;
+      let d="M0 14";for(let x=0;x<vw;x+=112)d+=" c20-8 40-8 56 0s36 8 56 0";
+      ground.setAttribute("viewBox","0 0 "+vw+" 26");ground.style.width=vw+"px";ground.style.maxWidth="none";ground.style.marginLeft=-off+"px";
+      gp.setAttribute("d",d);ge.setAttribute("cx",off+cx);
+    }else{
+      ground.setAttribute("viewBox","0 0 120 26");ground.style.width="";ground.style.maxWidth="";ground.style.marginLeft="";
+      gp.setAttribute("d","M4 14c20-8 40-8 56 0s36 8 56 0");ge.setAttribute("cx",60);
+    }
     const pts=[{x:cx,y:seed.offsetTop+6}];
     [...entries].reverse().forEach(e=>{
       const side=narrow?1:(e.classList.contains("l")?-1:1);
@@ -944,6 +980,9 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
   let raf=0;
   addEventListener("scroll",()=>{if(!raf)raf=requestAnimationFrame(()=>{raf=0;update()})},{passive:true});
   let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(build,150)});
+  /* re-trace the vine when the stalk changes height (e.g. a card opening in place on phones) */
+  let lastH=0;if(window.ResizeObserver)new ResizeObserver(([e])=>{const h=Math.round(e.contentRect.height);if(h===lastH)return;lastH=h;clearTimeout(rt);rt=setTimeout(build,150)}).observe(document.querySelector(".stalk"));
+  document.querySelector(".stalk").addEventListener("transitionend",e=>{if(e.propertyName==="grid-template-rows"){clearTimeout(rt);rt=setTimeout(build,50)}});
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{build();catZone()});
   route();
 })();
