@@ -100,7 +100,17 @@ body.step .wall.right{transform:translateX(75%) scale(1.5);opacity:0}
 body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 #tale.arrive{animation:arrive .9s ease both}
 @keyframes arrive{from{opacity:0}}
-@media (max-width:760px){.wall{width:30vw;opacity:calc(var(--wall-fade)*.6)}}
+@media (max-width:760px){
+  /* phones: slimmer walls and a centred column that stays between them; name on two lines with the cat sitting right under it */
+  .wall{width:19vw;opacity:calc(var(--wall-fade)*.6)}
+  .intro{padding-inline:calc(19vw - 4px);text-align:center;align-items:center}
+  .intro h1 .nm{display:block}
+  .intro .perch-line{width:100%;margin-top:2.6rem}
+  .intro .perch-line>span{display:none}
+  .intro .cat-zone{left:50%;right:auto;width:136px;margin-left:-68px}
+  .intro .tagline{text-wrap:balance}
+  .intro .next{align-self:center}
+}
 
 /* ---------- page 2: the climb ---------- */
 .home{position:fixed;z-index:5;top:calc(env(safe-area-inset-top,0px) + 12px);left:12px;background:var(--paper);font-size:.82rem;padding:.7rem 1.15rem}
@@ -479,7 +489,7 @@ body.menu-open .menu-btn .x{display:block}
 <main class="col intro" id="intro">
   <svg class="wall left" id="wallL" aria-hidden="true"></svg>
   <svg class="wall right" id="wallR" aria-hidden="true"></svg>
-  <h1>Jess Weng</h1>
+  <h1><span class="nm">Jess</span> <span class="nm">Weng</span></h1>
   <div class="rule perch-line" aria-hidden="true"><span></span><div class="cat-zone"><em class="meow">meow</em><svg class="shelf" viewBox="0 0 136 58">
         <g>
           <rect x="4" y="47" width="22" height="7" rx="1" fill="#A88B6E"/>
@@ -884,6 +894,7 @@ body.menu-open .menu-btn .x{display:block}
   document.querySelectorAll(".scroll .label").forEach(b=>b.addEventListener("click",()=>{
     const s=b.closest(".scroll"),open=s.classList.toggle("open");
     b.setAttribute("aria-expanded",open);
+    const t0=performance.now(),step=()=>{build(true);if(performance.now()-t0<1100)requestAnimationFrame(step);else build()};requestAnimationFrame(step);
   }));
 
   /* ---- "present day" ladder: jump to the top of the beanstalk ---- */
@@ -910,9 +921,10 @@ body.menu-open .menu-btn .x{display:block}
   }
 
   /* ---- the vine ---- */
-  function build(){
+  const tipNow=()=>reduce?0:Math.max(0,Math.min(H,innerHeight*0.45-stalk.getBoundingClientRect().top));
+  function build(quick){
     if(tale.hidden)return;
-    cobble();
+    if(!quick)cobble();
     svg.innerHTML="";leaves=[];
     const W=stalk.clientWidth;H=stalk.offsetHeight;
     svg.setAttribute("viewBox","0 0 "+W+" "+H);
@@ -947,14 +959,15 @@ body.menu-open .menu-btn .x{display:block}
     samples=[];for(let i=0;i<=300;i++){const l=L1*i/300;samples.push([l,main.getPointAtLength(l).y])}
     main.style.strokeDasharray=L1;twist.style.strokeDasharray=L2;
 
+    const tip0=tipNow();  // leaves already passed start open, so a rebuild doesn't make them pop again
     const leafPath=(x,y,dir,size)=>{const tip=x+dir*size;return "M"+x+" "+y+" C"+(x+dir*size*.3)+" "+(y-size*.6)+" "+(tip-dir*size*.1)+" "+(y-size*.55)+" "+tip+" "+(y-size*.5)+" C"+(tip-dir*size*.35)+" "+(y-size*.05)+" "+(x+dir*size*.3)+" "+(y+size*.08)+" "+x+" "+y+"Z"};
     pts.slice(1,-1).forEach(p=>{
       const dir=narrow?1:p.side, size=narrow?18:46, y=p.y-4;
-      const leaf=el("path",{class:"leaf "+(dir<0?"left":"right"),d:leafPath(p.x,y,dir,size)});
+      const leaf=el("path",{class:"leaf "+(dir<0?"left":"right")+(tip0<=p.y+6?" on":""),d:leafPath(p.x,y,dir,size)});
       svg.append(leaf);leaves.push({y:p.y,leaf,e:p.e});
       if(!narrow){
         const d2=-dir;
-        const l2=el("path",{class:"leaf "+(d2<0?"left":"right"),d:leafPath(p.x,y+30,d2,size*.6)});
+        const l2=el("path",{class:"leaf "+(d2<0?"left":"right")+(tip0<=p.y+36?" on":""),d:leafPath(p.x,y+30,d2,size*.6)});
         svg.append(l2);leaves.push({y:p.y+30,leaf:l2});
       }
     });
@@ -964,7 +977,7 @@ body.menu-open .menu-btn .x{display:block}
   // The vine has grown from the seed up to a point a little above the middle of the screen.
   function update(){
     if(tale.hidden||!main)return;
-    const tipY=reduce?0:Math.max(0,Math.min(H,innerHeight*0.45-stalk.getBoundingClientRect().top));
+    const tipY=tipNow();
     let reach=L1;
     for(const [l,y] of samples){if(y<=tipY){reach=l;break}}
     const g=reach/L1;
