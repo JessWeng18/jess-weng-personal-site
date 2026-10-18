@@ -7,7 +7,7 @@
 <title>Jess Weng</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Source+Serif+4:ital,wght@1,400;1,500&display=swap">
 <style>
 /* Two pages in one file: the title page (#intro) and the climb (#tale). The climb opens at the seed at the bottom; scrolling up grows the vine toward the clouds, where the LinkedIn posts hang as scrolls. */
 :root{
@@ -51,7 +51,7 @@
   --parrot-light:#9CC3EA;
   --f-display:"Cinzel","Trajan Pro",Georgia,serif;
   --f-body:"EB Garamond",Garamond,Georgia,"Times New Roman",serif;
-  --f-italic:"EB Garamond",Garamond,Georgia,serif;
+  --f-italic:"Source Serif 4","EB Garamond",Georgia,serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --cream:#231B15;--paper:#2C231C;--brown:#EEE5D5;--brown-soft:#B9A893;
@@ -67,6 +67,7 @@ html,body{margin:0}
 img,svg{max-width:100%}
 [hidden]{display:none!important}
 body{background:var(--cream);color:var(--brown);font:400 1.2rem/1.6 var(--f-body);padding-inline:16px}
+em,i{font-family:var(--f-italic);font-size-adjust:.42}
 /* ornamental rule: hairlines meeting at a small diamond */
 .rule{display:flex;align-items:center;gap:.8rem;color:var(--sage-deep);margin-block:1.6rem}
 .rule::before,.rule::after{content:"";flex:1;height:1px;background:var(--line)}
@@ -118,7 +119,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .post .cover{display:block;background:var(--parch)}
 .post .cover img{display:block;width:100%;height:100%;object-fit:cover;object-position:left center;aspect-ratio:1200/630}
 .post-body{padding:1.4rem 1.5rem}
-.post .tag{font-size:.85rem;font-style:italic;color:var(--brown-soft)}
+.post .tag{font-size:.85rem;font-style:italic;font-family:var(--f-italic);font-size-adjust:.42;color:var(--brown-soft)}
 .post .dot{margin-inline:.5em;font-style:normal}
 .post h3{font:500 1.15rem/1.35 var(--f-display);letter-spacing:.03em;margin-block:.4rem .5rem}
 .post p{margin:0 0 1.1rem;font-size:1.02rem;color:var(--brown-soft)}
@@ -128,7 +129,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .memory+.memory::before{content:"";position:absolute;top:0;left:50%;width:min(100%,820px);height:2px;border-radius:1px;background:var(--line);transform:translateX(-50%)}
 .memory h3{font:500 1.35rem/1.3 var(--f-display);letter-spacing:.04em;text-align:center;margin-bottom:1.4rem}
 .memory .dot{margin-inline:.6em;color:var(--sage-deep)}
-.memory .when{font:italic 400 1.05rem var(--f-italic);letter-spacing:0;color:var(--brown-soft)}
+.memory .when{font:italic 400 1.05rem var(--f-italic);font-size-adjust:.42;letter-spacing:0;color:var(--brown-soft)}
 .strip{display:flex;flex-wrap:nowrap;justify-content:center;gap:1.4rem}
 @media (max-width:560px){.strip{flex-wrap:wrap}}
 /* plain, straight images with a soft shadow; captions underneath */
@@ -138,8 +139,10 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .polaroid.wide img{aspect-ratio:4/3}
 .polaroid.meme img{aspect-ratio:auto;object-fit:contain;background:#fff}
 .memory .strip{align-items:center}
-.polaroid.empty .photo{display:grid;place-items:center;border:1.5px dashed #CFC6B6;background:#F3EEE5;color:#B5AA98;font:italic 400 1rem var(--f-italic)}
-.polaroid figcaption{padding:.7rem .2rem 0;text-align:center;font:italic 400 1rem/1.3 var(--f-italic);color:var(--brown-soft)}
+.polaroid.empty .photo{display:grid;place-items:center;border:1.5px dashed #CFC6B6;background:#F3EEE5;color:#B5AA98;font:italic 400 1rem var(--f-italic);font-size-adjust:.42}
+.polaroid figcaption{padding:.7rem .2rem 0;text-align:center;font:italic 400 1rem/1.3 var(--f-italic);font-size-adjust:.42;color:var(--brown-soft)}
+.polaroid figcaption.upright{font-style:normal;font-family:var(--f-body)}
+.polaroid figcaption.upright em{font-style:italic}
 .shorts-head{padding-top:5rem;text-align:center}
 .shorts-head h2{font:400 clamp(1.8rem,6vw,2.6rem)/1.15 var(--f-display);letter-spacing:.06em}
 .shorts-head p{margin:.5rem 0 0;color:var(--brown-soft)}
@@ -151,7 +154,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
   background:radial-gradient(circle at 35% 35%,#fff8 0 2px,var(--pin) 3px 60%,#0004);box-shadow:0 2px 2px rgb(0 0 0/.3)}
 .short .frame{aspect-ratio:16/9;background:#000;border-radius:2px;overflow:hidden}
 .short iframe{display:block;width:100%;height:100%;border:0}
-.short .tag{display:block;margin-top:.9rem;font-size:.85rem;font-style:italic;color:var(--brown-soft)}
+.short .tag{display:block;margin-top:.9rem;font-size:.85rem;font-style:italic;font-family:var(--f-italic);font-size-adjust:.42;color:var(--brown-soft)}
 .short .dot{margin-inline:.5em;font-style:normal}
 .short h3{font:500 1.35rem/1.25 var(--f-body);margin-block:.9rem .3rem}
 .short p{margin:0;font-size:1rem;color:var(--brown-soft)}
@@ -180,7 +183,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .cloud .c4{right:20%;bottom:30px;width:125px;opacity:.55;animation:drift 28s ease-in-out infinite alternate}
 .cloud .c5{left:42%;top:0;width:80px;opacity:.25;animation:drift 36s ease-in-out infinite alternate}
 @keyframes drift{from{transform:translateX(-14px)}to{transform:translateX(14px)}}
-.seed{align-self:center;text-align:center;color:var(--brown-soft);font:italic 400 1.1rem var(--f-italic)}
+.seed{align-self:center;text-align:center;color:var(--brown-soft);font:italic 400 1.1rem var(--f-italic);font-size-adjust:.42}
 .seed svg{display:block;margin:0 auto .4rem;width:120px;height:26px}
 .up{text-align:center;padding-block:1.4rem 2.4rem;margin:0;font:400 .72rem var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--sage-deep)}
 .up span{display:inline-block;animation:bob 1.8s ease-in-out infinite}
@@ -199,7 +202,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .entry.diploma::before{content:"";position:absolute;inset:7px;border:2.5px solid #C9B27C;pointer-events:none;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cg transform=''%3E%3Cpath d='M1 19V7C1 3.7 3.7 1 7 1h12' fill='none' stroke='%23B39A62' stroke-width='1.8'/%3E%3Cpath d='M4 19V9c0-2.8 2.2-5 5-5h10' fill='none' stroke='%23B39A62' stroke-width='.6'/%3E%3Ccircle cx='7' cy='7' r='1.6' fill='%23B39A62'/%3E%3C/g%3E%3C/svg%3E") 0 0/20px 20px no-repeat,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cg transform='translate(20 0) scale(-1 1)'%3E%3Cpath d='M1 19V7C1 3.7 3.7 1 7 1h12' fill='none' stroke='%23B39A62' stroke-width='1.8'/%3E%3Cpath d='M4 19V9c0-2.8 2.2-5 5-5h10' fill='none' stroke='%23B39A62' stroke-width='.6'/%3E%3Ccircle cx='7' cy='7' r='1.6' fill='%23B39A62'/%3E%3C/g%3E%3C/svg%3E") 100% 0/20px 20px no-repeat,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cg transform='translate(0 20) scale(1 -1)'%3E%3Cpath d='M1 19V7C1 3.7 3.7 1 7 1h12' fill='none' stroke='%23B39A62' stroke-width='1.8'/%3E%3Cpath d='M4 19V9c0-2.8 2.2-5 5-5h10' fill='none' stroke='%23B39A62' stroke-width='.6'/%3E%3Ccircle cx='7' cy='7' r='1.6' fill='%23B39A62'/%3E%3C/g%3E%3C/svg%3E") 0 100%/20px 20px no-repeat,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cg transform='translate(20 20) scale(-1 -1)'%3E%3Cpath d='M1 19V7C1 3.7 3.7 1 7 1h12' fill='none' stroke='%23B39A62' stroke-width='1.8'/%3E%3Cpath d='M4 19V9c0-2.8 2.2-5 5-5h10' fill='none' stroke='%23B39A62' stroke-width='.6'/%3E%3Ccircle cx='7' cy='7' r='1.6' fill='%23B39A62'/%3E%3C/g%3E%3C/svg%3E") 100% 100%/20px 20px no-repeat}
 .entry.diploma h3{font-size:1.18rem;margin-block:.5rem .35rem}
-.entry.diploma .deg{font:italic 500 1.2rem var(--f-italic)}
+.entry.diploma .deg{font:italic 500 1.2rem var(--f-italic);font-size-adjust:.42}
 .entry.diploma .seal{position:absolute;right:16px;bottom:-14px;width:40px;height:46px;filter:drop-shadow(0 2px 2px rgb(0 0 0/.2))}
 .diploma.brown{--seal:#8A4F2E;--seal-dk:#5C321C}
 .diploma.columbia{--seal:#B9D9EB;--seal-dk:#B9D9EB}
@@ -219,17 +222,18 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .guild{max-width:900px;margin-inline:auto}
 .guild .head{text-align:center;padding-top:1rem}
 .guild .head h2{color:var(--soil-ink)}
-.guild .head p{color:var(--soil-ink);opacity:.8;font-style:italic}
+.guild .head p{color:var(--soil-ink);opacity:.8;font-style:italic;font-family:var(--f-italic);font-size-adjust:.42}
 .trades{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;padding:2rem 4px 0}
 .trade{position:relative;text-align:center;padding:1.8rem 1.3rem 1.3rem;background:var(--paper);color:var(--brown);border:1px solid var(--line);border-radius:2px;outline:1px solid var(--root);outline-offset:3px}
 .trade::before{content:"";position:absolute;top:-9px;left:50%;width:16px;height:16px;margin-left:-8px;transform:rotate(45deg);background:var(--soil);border:1px solid var(--root)}
 .trade h3{font:500 1.05rem/1.35 var(--f-display);letter-spacing:.03em;margin-block:.35rem .2rem}
-.trade .role{margin:0 0 .6rem;font-style:italic;color:var(--brown-soft);font-size:1rem}
+.trade .role{margin:0 0 .6rem;font-style:italic;font-family:var(--f-italic);font-size-adjust:.42;color:var(--brown-soft);font-size:1rem}
 .trade p{margin:0;font-size:1.05rem;color:var(--brown-soft)}
+.shorts-head .aside{display:inline-block;margin-top:.55rem;padding:.3rem .95rem;border:1px dashed var(--sage-deep);border-radius:999px;background:rgb(110 130 95/.08);font-style:italic;font-family:var(--f-italic);font-size-adjust:.42;font-size:.92em;color:var(--sage-deep)}
 /* every card shares the same five rows (industry, name, role, via, dates) so lines align across cards */
 .trade{display:grid;grid-row:span 5;grid-template-rows:subgrid;row-gap:0;justify-items:center;align-items:start}
 .trade .industry{display:inline-block;margin-bottom:.7rem;padding:.3rem .8rem;border:1px solid var(--sage-deep);border-radius:999px;font:400 .66rem var(--f-display);letter-spacing:.16em;text-transform:uppercase;color:var(--sage-deep)}
-.trade .via{margin:-.3rem 0 .6rem;font-size:.88rem;font-style:italic;opacity:.85}
+.trade .via{margin:-.3rem 0 .6rem;font-size:.88rem;font-style:italic;font-family:var(--f-italic);font-size-adjust:.42;opacity:.85}
 .trade .date{align-self:end;padding-top:.3rem}
 .entry.dim{opacity:.35}
 /* current role as a chalkboard (education!): slate in a wooden frame, chalk lettering, the LangChain mark and a chalk ledge */
@@ -301,7 +305,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .cat{position:absolute;bottom:0;right:44px;width:50px;height:34px;overflow:visible}
 .cat .s-paw{transform-box:view-box;transform-origin:30.7px 14.5px;animation:c-swat 16s ease-in-out infinite}
 .cat .s-head{transform-box:view-box;transform-origin:25px 9px;animation:c-tilt 16s ease-in-out infinite}
-.meow{position:absolute;right:58px;bottom:52px;font:italic 400 .95rem var(--f-italic);color:var(--brown-soft);opacity:0;animation:c-meow 16s ease-out infinite}
+.meow{position:absolute;right:58px;bottom:52px;font:italic 400 .95rem var(--f-italic);font-size-adjust:.42;color:var(--brown-soft);opacity:0;animation:c-meow 16s ease-out infinite}
 @keyframes c-swat{0%,8%,26%,62%,76%,100%{transform:rotate(0)}10%,15%,20%,64%,70%{transform:rotate(-150deg)}12.5%,17.5%,22.5%,67%,73%{transform:rotate(-100deg)}}
 @keyframes c-wobble{0%,10.5%,13%,20.5%,23%,64.5%,67%,100%{transform:rotate(0)}11.5%,21.5%,65.5%{transform:rotate(-7deg)}12.2%,22.2%,66.2%{transform:rotate(3deg)}}
 @keyframes c-tilt{0%,34%,46%,84%,95%,100%{transform:rotate(0)}36%,44%{transform:rotate(-12deg)}86%,93%{transform:rotate(-10deg)}}
@@ -343,7 +347,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .rod::before{left:-8px}.rod::after{right:-8px}
 .sheet{background:linear-gradient(90deg,var(--parch-edge),var(--parch) 7%,var(--parch) 93%,var(--parch-edge));margin-inline:2px}
 .label{display:block;width:100%;border:0;background:none;color:inherit;font:inherit;text-align:center;padding:.9rem 1.4rem 1rem;cursor:pointer}
-.label .tag{font-size:.85rem;font-style:italic;color:var(--brown-soft)}
+.label .tag{font-size:.85rem;font-style:italic;font-family:var(--f-italic);font-size-adjust:.42;color:var(--brown-soft)}
 .label .dot,.trade .dot{margin-inline:.5em;font-style:normal}
 .label h3{font:500 1.05rem/1.35 var(--f-display);letter-spacing:.03em;margin-block:.3rem .25rem}
 .label .hint{display:block;margin-top:.35rem;font:400 .62rem var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--sage-deep);transition:opacity .4s}
@@ -358,8 +362,8 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .stats-k{flex-basis:100%;font:400 .62rem var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--sage-deep)}
 .stats div{flex:1;min-width:5.5rem}
 .stats b{display:block;font:500 1.35rem/1.1 var(--f-display);color:var(--brown)}
-.stats div span{font-size:.9rem;font-style:italic;color:var(--brown-soft)}
-.body .more{display:block;width:fit-content;margin-top:.8rem;font-size:.95rem;font-style:italic;color:var(--brown-soft)}  /* always on its own line */
+.stats div span{font-size:.9rem;font-style:italic;font-family:var(--f-italic);font-size-adjust:.42;color:var(--brown-soft)}
+.body .more{display:block;width:fit-content;margin-top:.8rem;font-size:.95rem;font-style:italic;font-family:var(--f-italic);font-size-adjust:.42;color:var(--brown-soft)}  /* always on its own line */
 @media (hover:hover){
   .scroll:hover .body{grid-template-rows:1fr}
   .scroll:hover .body .text{opacity:1}
@@ -369,7 +373,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .scroll.open .body .text{opacity:1}
 .scroll.open .hint{opacity:0}
 
-/* talks and webinars: a weathered three-plank tavern sign with riveted iron straps, hung on iron chains.
+/* talks and workshops: a weathered three-plank tavern sign with riveted iron straps, hung on iron chains.
    Unfolding drops an aged paper notice below it. */
 .scroll.event{padding-bottom:0;margin-top:30px;transform-origin:50% -30px}
 .event .rod{display:none}
@@ -395,7 +399,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
 .event .body .text{padding-top:1.1rem}
 @media (hover:hover){.scroll.event:hover{animation:swing 1.6s ease-in-out}}
 @keyframes swing{25%{transform:rotate(1.8deg)}55%{transform:rotate(-1.2deg)}80%{transform:rotate(.5deg)}}
-/* ---- talks and webinars: mossy stone tablets ---- */
+/* ---- talks and workshops: mossy stone tablets ---- */
 /* resting rather than hanging, so no chains and no sway */
 .scroll.event.stone{margin-top:0}
 .scroll.event.stone::before,.scroll.event.stone::after{display:none}
@@ -549,9 +553,8 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
         <div class="drop">
           <div class="body sheet"><div><div class="text">
             <p><em>How Deep Agents Remember Without Keeping Everything in Context</em></p>
-            <p>Context windows are finite, but long-running tasks aren&rsquo;t. Covers summarization, subagents, offloading and long-term memory on a real task end to end: how they prevent context rot without losing what matters, and how a model-agnostic harness lets agents keep their memory even when you switch models.</p>
-            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7513380692299288576?collapsed=1" height="509" title="LinkedIn post: Agent Memory expert showcase" loading="lazy" allowfullscreen></iframe>
-            <a class="btn solid" style="margin-top:1rem" href="https://www.oreilly.com/live/expert-showcase-agent-memory.html" target="_blank" rel="noopener">Event page on O&rsquo;Reilly</a>
+            <p>In this talk I covered 5 context engineering techniques with the deep agents harness (summarization, subagents, offloading and long-term memory) and how a model-agnostic harness keeps memory intact across models.</p>
+            <a class="btn solid" href="https://www.oreilly.com/live/expert-showcase-agent-memory.html" target="_blank" rel="noopener">Event page on O&rsquo;Reilly</a>
           </div></div></div>
           <div class="rod" aria-hidden="true"></div>
         </div>
@@ -560,7 +563,7 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
       <article class="scroll event stone">
         <div class="rod" aria-hidden="true"></div>
         <div class="sheet">
-          <button class="label" aria-expanded="false"><span class="tag">Webinar<span class="dot">&middot;</span>Sep 17, 2026</span><h3>Agent Harnesses &amp; Deep Agents 101</h3><span class="hint"><span class="hov">Hover to read</span><span class="tap">Tap to read</span></span></button>
+          <button class="label" aria-expanded="false"><span class="tag">Workshop<span class="dot">&middot;</span>Sep 17, 2026</span><h3>Agent Harnesses &amp; Deep Agents 101</h3><span class="hint"><span class="hov">Hover to read</span><span class="tap">Tap to read</span></span></button>
         </div>
         <div class="drop">
           <div class="body sheet"><div><div class="text">
@@ -705,16 +708,6 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
   </header>
   <section class="board" aria-label="Short videos">
       <article class="short">
-        <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/rduH9wnXto8" title="How Stripe Built Kai" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-        <h3>How Stripe Built Kai</h3>
-        <p>How Stripe built Kai, a company-wide, always-on AI assistant.</p>
-      </article>
-      <article class="short">
-        <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/8gCam2-iGLc" title="What is Deep Agents?" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-        <h3>What is Deep Agents?</h3>
-        <p>LangChain&rsquo;s open-source harness for long-running work: planning, context management and multi-agent orchestration.</p>
-      </article>
-      <article class="short">
         <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/R0ckdFjUF5U" title="What is an Agent Harness?" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
         <h3>What is an Agent Harness?</h3>
         <p>Everything around the model that turns it into a work engine.</p>
@@ -723,6 +716,16 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
         <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/bv1qgkbWhms" title="What is a Skill?" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
         <h3>What is a Skill?</h3>
         <p>Folders of instructions an agent only opens when it needs them, so its context stays lean.</p>
+      </article>
+      <article class="short">
+        <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/8gCam2-iGLc" title="What is Deep Agents?" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+        <h3>What is Deep Agents?</h3>
+        <p>LangChain&rsquo;s open-source harness for long-running work: context engineering and multi-agent orchestration.</p>
+      </article>
+      <article class="short">
+        <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/rduH9wnXto8" title="Stripe&rsquo;s AI platform Kai was built with LangChain in 1 week (explained)" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+        <h3>Stripe&rsquo;s AI platform Kai was built with LangChain in 1 week (explained)</h3>
+        <p>How Stripe built Kai, a company-wide, always-on AI assistant.</p>
       </article>
   </section>
 </div>
@@ -758,15 +761,16 @@ body.step .intro>:not(.wall){opacity:0;transform:scale(1.25);filter:blur(3px)}
   <nav class="pages" aria-label="More"><a class="btn" href="#shorts">Short videos &rarr;</a><a class="btn" href="#blogs">Blogs &rarr;</a></nav>
   <header class="col shorts-head">
     <h2>Scrapbook</h2>
-    <p>Photos, memes and moments along the way.</p>
+    <p>Photos, memes and moments along the way</p>
+    <p class="aside">Proof I am not AI, despite the accusations :p</p>
     <div class="rule" aria-hidden="true"><span></span></div>
   </header>
   <div class="memories">
     <section class="memory">
       <h3>Memes</h3>
       <div class="strip">
-        <figure class="polaroid meme" style="width:min(100%,250px)"><img src="photos/meme-ai-avatar.jpg" alt="YouTube comment under the agent harness video with Harrison Chase: If she wasn't standing next to the man I would have thought she's an AI avatar lol" loading="lazy"><figcaption>AI allegations (to clarify, I am not)</figcaption></figure>
-        <figure class="polaroid meme" style="width:min(100%,380px)"><img src="photos/meme-langchain-freestyle.jpg" alt="Chat message: Drink some water, you're talking 27 min non-stop. Not even Eminem can rival your expertise in LangChain freestyle rap. Awesome presentation." loading="lazy"><figcaption>Certified LangChain freestyle rapper</figcaption></figure>
+        <figure class="polaroid meme" style="width:min(100%,250px)"><img src="photos/meme-ai-avatar.jpg" alt="YouTube comment under the agent harness video with Harrison Chase: If she wasn't standing next to the man I would have thought she's an AI avatar lol" loading="lazy"><figcaption>AI allegations</figcaption></figure>
+        <figure class="polaroid meme" style="width:min(100%,380px)"><img src="photos/meme-langchain-freestyle.jpg" alt="Chat message: Drink some water, you're talking 27 min non-stop. Not even Eminem can rival your expertise in LangChain freestyle rap. Awesome presentation." loading="lazy"><figcaption class="upright">Workshop <em>and</em> concert BOGO deal!</figcaption></figure>
       </div>
     </section>
     <section class="memory">
