@@ -43,7 +43,7 @@ img{max-width:100%}
 @keyframes boil{0%{opacity:1}33.3%,100%{opacity:0}}
 .s-title .cut{position:absolute;right:3%;bottom:0;height:min(74%,calc(50vw * 1156 / 1191));aspect-ratio:1191/1156;max-width:50%;filter:drop-shadow(0 10px 24px rgb(0 0 0/.35))}
 @media (max-width:759px){
-  .s-title .screen{align-items:center;text-align:center;justify-content:flex-start;padding:56px 20px 0;min-height:min(86vh,640px)}
+  .s-title .screen{align-items:center;text-align:center;justify-content:flex-start;padding:158px 20px 0;min-height:min(78vh,580px)}
   .s-title h1{font-size:clamp(76px,23vw,112px)}
   .s-title .cut{left:50%;right:auto;transform:translateX(-50%);height:auto;width:80%;max-width:none}
 }
@@ -117,9 +117,7 @@ img{max-width:100%}
 .s-shorts .screen{background:#0F0E0D;color:#EDE6DA}
 .belt{overflow:hidden;margin-inline:calc(-1*clamp(28px,5vw,64px));-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
 .strip{display:flex;gap:16px;width:max-content;padding:6px 0 14px;animation:belt 60s linear infinite}
-.belt:hover .strip,.belt.stopped .strip,.belt.held .strip{animation-play-state:paused}
-.belt-hint{display:none;margin:.2rem 0 0;text-align:center;font:400 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;opacity:.55}
-@media (hover:none){.belt-hint{display:block}}
+.belt:hover .strip,.belt.stopped .strip{animation-play-state:paused}
 @keyframes belt{to{transform:translateX(-50%)}}
 .clip{flex:0 0 clamp(240px,30vw,320px)}
 .clip .thumb{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;border-radius:3px;overflow:hidden;cursor:pointer;background:#222 center/cover}
@@ -339,7 +337,6 @@ body.intro{overflow:hidden}
       <div class="clip"><button class="thumb" data-yt="rduH9wnXto8" aria-label="Play: Stripe's AI platform Kai was built with LangChain in 1 week"></button><p>Stripe&rsquo;s Kai, built with LangChain in 1 week</p></div>
       <div class="clip"><button class="thumb" data-yt="Ud5RsBegyfw" aria-label="Play: How Deep Agents Manages Context"></button><p>How Deep Agents Manages Context</p></div>
     </div></div>
-    <p class="belt-hint" id="belt-hint">Tap to pause</p>
   </div>
 </section>
 
@@ -472,13 +469,10 @@ bars.addEventListener("click",()=>{bars.classList.add("off");reel.classList.add(
 takes.forEach(t=>t.addEventListener("click",()=>showTake(tk+1)));
 document.getElementById("take-next").addEventListener("click",()=>showTake(tk+1));
 document.getElementById("take-prev").addEventListener("click",()=>showTake(tk-1));
-// phones: tap the belt (not a video) to pause or resume it
-const belt=document.querySelector(".belt"),hint=document.getElementById("belt-hint");
-if(belt)belt.addEventListener("click",e=>{if(e.target.closest(".thumb,iframe")||belt.classList.contains("stopped"))return;const h=belt.classList.toggle("held");if(hint)hint.textContent=h?"Tap to resume":"Tap to pause"});
 // shorts: show the thumbnail until clicked, then swap in the player
 document.querySelectorAll(".thumb").forEach(b=>{
   const id=b.dataset.yt;b.style.backgroundImage=`url(https://i.ytimg.com/vi/${id}/hqdefault.jpg)`;
-  b.addEventListener("click",()=>{b.closest(".belt").classList.add("stopped");if(hint)hint.hidden=true;const f=document.createElement("iframe");f.src=`https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;f.title=b.getAttribute("aria-label");f.allow="autoplay; encrypted-media; picture-in-picture";f.allowFullscreen=true;b.replaceWith(f)});
+  b.addEventListener("click",()=>{b.closest(".belt").classList.add("stopped");const f=document.createElement("iframe");f.src=`https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;f.title=b.getAttribute("aria-label");f.allow="autoplay; encrypted-media; picture-in-picture";f.allowFullscreen=true;b.replaceWith(f)});
 });
 window.movieGo=()=>{room.classList.add("gone");document.body.classList.remove("intro")};   // handy for testing
 })();
