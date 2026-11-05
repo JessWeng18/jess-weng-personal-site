@@ -43,7 +43,7 @@ img{max-width:100%}
 @keyframes boil{0%{opacity:1}33.3%,100%{opacity:0}}
 .s-title .cut{position:absolute;right:3%;bottom:0;height:min(74%,calc(50vw * 1156 / 1191));aspect-ratio:1191/1156;max-width:50%;filter:drop-shadow(0 10px 24px rgb(0 0 0/.35))}
 @media (max-width:759px){
-  .s-title .screen{align-items:center;text-align:center;justify-content:flex-start;padding:158px 20px 0;min-height:min(78vh,580px)}
+  .s-title .screen{align-items:center;text-align:center;justify-content:flex-start;padding:134px 20px 0;min-height:min(78vh,580px)}
   .s-title h1{font-size:clamp(76px,23vw,112px)}
   .s-title .cut{left:50%;right:auto;transform:translateX(-50%);height:auto;width:80%;max-width:none}
 }
@@ -119,6 +119,16 @@ img{max-width:100%}
 .strip{display:flex;gap:16px;width:max-content;padding:6px 0 14px;animation:belt 60s linear infinite}
 .belt:hover .strip,.belt.stopped .strip{animation-play-state:paused}
 @keyframes belt{to{transform:translateX(-50%)}}
+.swipe-note{display:none;margin:.4rem 0 0;text-align:center;font:400 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+/* touch screens: no auto-scroll, just a swipeable row that snaps to each video */
+@media (hover:none){
+  .belt{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-inline:clamp(28px,5vw,64px)}
+  .belt::-webkit-scrollbar{display:none}
+  .strip{animation:none;width:auto}
+  .clip{scroll-snap-align:center;flex-basis:min(68vw,320px)}
+  .clip[aria-hidden="true"]{display:none}
+  .swipe-note{display:block}
+}
 .clip{flex:0 0 clamp(240px,30vw,320px)}
 .clip .thumb{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;border-radius:3px;overflow:hidden;cursor:pointer;background:#222 center/cover}
 .clip .thumb::after{content:"";position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:rgb(255 255 255/.85) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7l9 5-9 5z' fill='%231C1916'/%3E%3C/svg%3E") center/26px no-repeat}
@@ -316,7 +326,7 @@ body.intro{overflow:hidden}
 <section class="scene s-talks" aria-label="Workshops and talks">
   <div class="screen">
     <span class="slate">Scene 03</span>
-    <p class="cap">Recordings &middot; Workshops &amp; talks</p>
+    <p class="cap">Workshops &amp; talks</p>
     <div class="tickets">
       <a class="ticket" href="https://events.langchain.com/on-demand/64cd2752-8cf2-415f-8e64-791dc61e39ac" target="_blank" rel="noopener"><span class="stub"><span>Nov<b>03</b></span></span><span class="main"><small>Workshop</small><b>Agent Memory 101: Context Engineering</b></span></a>
       <a class="ticket" href="https://maven.com/p/73db9b/beyond-simple-agents-building-with-lang-chain-deep-agents" target="_blank" rel="noopener"><span class="stub"><span>Oct<b>19</b></span></span><span class="main"><small>Invited talk</small><b>Global AI Builder Series</b></span></a>
@@ -337,6 +347,7 @@ body.intro{overflow:hidden}
       <div class="clip"><button class="thumb" data-yt="rduH9wnXto8" aria-label="Play: Stripe's AI platform Kai was built with LangChain in 1 week"></button><p>Stripe&rsquo;s Kai, built with LangChain in 1 week</p></div>
       <div class="clip"><button class="thumb" data-yt="Ud5RsBegyfw" aria-label="Play: How Deep Agents Manages Context"></button><p>How Deep Agents Manages Context</p></div>
     </div></div>
+    <p class="swipe-note">Swipe to see more &rarr;</p>
   </div>
 </section>
 
@@ -383,7 +394,7 @@ body.intro{overflow:hidden}
     <p class="cap">Conference behind the scenes &middot; Interrupt NYC</p>
     <div class="sheet">
       <figure class="frame"><img src="photos/interrupt-nyc-venue.jpg" alt="The Interrupt NYC venue, Halo Twenty Eight" loading="lazy"><figcaption><span>14A</span><span>Halo Twenty Eight</span></figcaption></figure>
-      <figure class="frame"><img src="photos/interrupt-nyc-workshop.jpg" alt="Walking through the Deep Agents harness" loading="lazy"><figcaption><span>15A</span><span>The harness</span></figcaption></figure>
+      <figure class="frame"><img src="photos/interrupt-nyc-workshop.jpg" alt="Walking through the Deep Agents harness" loading="lazy"><figcaption><span>15A</span><span></span></figcaption></figure>
       <figure class="frame"><img src="photos/interrupt-nyc-stage.jpg" alt="On stage cracking jokes" loading="lazy"><figcaption><span>16A</span><span>Terrible jokes</span></figcaption></figure>
     </div>
   </div>
