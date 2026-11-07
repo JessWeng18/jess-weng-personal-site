@@ -15,7 +15,10 @@
 :root{--paper:#F6F1E7;--ink:#2B2420;--ink-soft:#6E6156;--film:#1C1916;--cream:#FBF7EE;--red:#8E2B2B;--gold:#D9B45A;
   --f-title:"Bebas Neue",Impact,sans-serif;--f-mono:"Courier Prime","Courier New",monospace;--f-body:"EB Garamond",Georgia,serif}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+/* each scene settles neatly in the middle of the screen; on laptops it always snaps, on phones only when you're close */
+.scene,.endcard{scroll-snap-align:center;scroll-margin-block:16px}
+@media (min-width:760px) and (hover:hover){html{scroll-snap-type:y mandatory}}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 18px/1.6 var(--f-body);padding:0 16px}
 a{color:inherit}
 img{max-width:100%}
@@ -42,6 +45,15 @@ img{max-width:100%}
 /* the yellow outline "boils" gently: three hand-drawn takes swapped a few times a second */
 .s-title .cut .ol{opacity:0;animation:boil .66s steps(1) infinite}
 .s-title .cut .o0{animation-delay:0s}.s-title .cut .o1{animation-delay:-.22s}.s-title .cut .o2{animation-delay:-.44s}
+/* a handwritten "hi!" that writes itself in above her head every so often (timing set by script) */
+.s-title .cut .hi{position:absolute;left:62%;top:-14%;width:24%;height:auto;overflow:visible;opacity:0;transition:opacity .35s}
+.hi path{stroke:#F6D46E;stroke-width:4.6}
+.hi .ghost{stroke-width:2.2;opacity:.55}
+.hi .dot{stroke-width:7}
+.hi .spark{stroke-width:3;opacity:.85}
+.s-title .cut .hi.say{opacity:1;transition:none;animation:hi-pop .45s cubic-bezier(.3,1.6,.5,1)}
+.s-title .cut .hi.say.bye{opacity:0;transition:opacity .45s}
+@keyframes hi-pop{from{opacity:0;transform:translateY(10px) scale(.6) rotate(8deg)}}
 @keyframes boil{0%{opacity:1}33.3%,100%{opacity:0}}
 .s-title .cut{position:absolute;right:3%;bottom:0;height:min(74%,calc(50vw * 1156 / 1191));aspect-ratio:1191/1156;max-width:50%;filter:drop-shadow(0 10px 24px rgb(0 0 0/.35))}
 @media (max-width:759px){
@@ -62,7 +74,24 @@ img{max-width:100%}
 /* 03 the lead role: a clapperboard */
 .s-role .screen{background:#E8E2D6;align-items:center}
 .clap{width:min(100%,620px);background:#1E1E1E;color:#F2F0EA;border-radius:6px;box-shadow:0 12px 24px rgb(0 0 0/.25)}
-.clap .stick{height:46px;border-radius:6px 6px 0 0;background:repeating-linear-gradient(-55deg,#F2F0EA 0 26px,#1E1E1E 26px 52px);border-bottom:3px solid #F2F0EA}
+.clap{position:relative;cursor:pointer;margin-top:34px}
+/* the clapper arm is hinged on the left and rests shut; hover (or tap) opens it and snaps it shut once, like "cut!" */
+.clap .stick{position:absolute;left:0;right:0;top:-34px;height:32px;border-radius:5px 5px 0 0;background:repeating-linear-gradient(-55deg,#F2F0EA 0 26px,#1E1E1E 26px 52px);border:2px solid #1E1E1E;
+  transform-origin:6px 100%;transform:rotate(0);box-shadow:0 6px 10px rgb(0 0 0/.18)}
+.clap .stick::before{content:"";position:absolute;left:-2px;bottom:-9px;width:14px;height:14px;border-radius:50%;background:#B9B4AA;border:3px solid #1E1E1E}
+.clap .base{height:28px;border-radius:6px 6px 0 0;background:repeating-linear-gradient(55deg,#F2F0EA 0 26px,#1E1E1E 26px 52px);border-bottom:3px solid #F2F0EA}
+.clap.snap .stick{animation:clap-snap .8s ease-in-out}
+.clap.snap{animation:clap-jolt .8s ease-out}
+@keyframes clap-snap{0%{transform:rotate(0)}45%{transform:rotate(-16deg);animation-timing-function:cubic-bezier(.6,0,1,.6)}62%{transform:rotate(1.5deg)}70%,100%{transform:rotate(0)}}
+/* the bird that flies out of the clapper on each snap */
+.clap .bird{position:absolute;left:calc(100% - 38px);top:-34px;width:44px;pointer-events:none;z-index:3;opacity:0;
+  offset-path:path("M0 0C30 -50 60 -70 105 -100S260 -260 760 -820");offset-rotate:0deg;offset-distance:0%;
+  animation:bird-path 2.2s cubic-bezier(.4,.05,.7,.9) .5s forwards,bird-fade 2.2s linear .5s forwards}
+.clap .bird img{display:block;width:100%;height:auto;transform-origin:50% 60%;animation:bird-flap .26s ease-in-out .5s 10 alternate}
+@keyframes bird-path{from{offset-distance:0%;transform:scale(.45) rotate(-12deg)}18%{transform:scale(1) rotate(-6deg)}to{offset-distance:100%;transform:scale(1.05) rotate(-14deg)}}
+@keyframes bird-fade{0%{opacity:0}8%,100%{opacity:1}}
+@keyframes bird-flap{from{transform:scaleY(1) skewX(0)}to{transform:scaleY(.72) skewX(-6deg)}}
+@keyframes clap-jolt{0%,61%{transform:none}65%{transform:translateY(3px) rotate(.4deg)}72%{transform:translateY(-1px)}80%,100%{transform:none}}
 .clap .rows{display:grid;grid-template-columns:1fr 1fr;font:400 13px var(--f-mono);letter-spacing:.12em;text-transform:uppercase}
 .clap .rows div{padding:12px 16px;border-bottom:1px solid #555;border-right:1px solid #555}
 .clap .rows div:nth-child(2n){border-right:0}
@@ -205,6 +234,55 @@ footer{padding:10px 0 60px;text-align:center;font:400 11px var(--f-mono);letter-
 .reel.playing~.reel-nav{visibility:visible}
 .reel-nav{display:flex;align-items:center;gap:18px;margin-top:22px;font:700 12px var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:#C9BFAD}
 .reel-nav button{width:36px;height:36px;border:1px solid #C9BFAD;border-radius:50%;background:none;color:#EDE6DA;cursor:pointer;font-size:12px}
+/* bear + lion: walk in, high-five in the middle, walk back out (14s loop) */
+@property --stride{syntax:"<angle>";inherits:true;initial-value:0deg}
+.critters{position:absolute;left:24px;right:24px;bottom:14px;height:62px;pointer-events:none;
+  --bear:#7A5438;--bear-light:#C9A27E;--bear-dark:#3A271B;--lion:#C9964F;--lion-light:#EBCD97;--mane:#8A5A2B}
+.critters::after{content:"";position:absolute;left:0;right:0;bottom:-2px;border-bottom:2px dashed rgb(74 54 40/.22)}
+.critters svg{display:block;width:100%;height:100%;overflow:visible}
+.critters .leg{transform-box:fill-box;transform-origin:50% 0;animation:c-stride .3s ease-in-out infinite alternate}
+.critters .leg.b{animation-delay:-.3s}
+@keyframes c-stride{from{transform:rotate(calc(var(--stride) * -1))}to{transform:rotate(var(--stride))}}
+.critters .bear{position:absolute;bottom:0;width:72px;height:51px;animation:bear-walk 26s ease-in-out infinite,c-legs 26s linear infinite}
+.critters .bear svg{animation:bear-face 26s ease-in-out infinite}
+.critters .lion{position:absolute;bottom:0;width:84px;height:57px;animation:lion-walk 26s ease-in-out infinite,l-legs 26s linear infinite}
+.critters .lion svg{animation:lion-face 26s ease-in-out infinite}
+.critters .bear .five{transform-box:view-box;transform-origin:34.5px 24px;animation:bear-paw 26s ease-in-out infinite}
+.critters .lion .five{transform-box:view-box;transform-origin:36.5px 26px;animation:lion-paw 26s ease-in-out infinite}
+.critters .tail{transform-box:view-box;transform-origin:9px 20px;animation:c-tail 1.6s ease-in-out infinite alternate}
+@keyframes c-tail{from{transform:rotate(-8deg)}to{transform:rotate(10deg)}}
+/* each starts a third of the way in from its side, strolls to the middle, high-fives, strolls back */
+@keyframes bear-walk{0%,10%{left:calc(33% - 36px)}24%,40%{left:calc(50% - 82px)}54%,100%{left:calc(33% - 36px)}}
+@keyframes lion-walk{0%,12%{left:calc(67% - 48px)}25%,43%{left:calc(50% + 8px)}57%,100%{left:calc(67% - 48px)}}
+@keyframes bear-face{0%,40%{transform:scaleX(1)}42.5%,54%{transform:scaleX(-1)}56.5%,62%{transform:scaleX(1)}64%,67.5%{transform:scaleX(-1)}69.5%,100%{transform:scaleX(1)}}
+@keyframes lion-face{0%,41%{transform:scaleX(-1)}43.5%,57%{transform:scaleX(1)}59.5%,88%{transform:scaleX(-1)}90%,93%{transform:scaleX(1)}95%,100%{transform:scaleX(-1)}}
+@keyframes c-legs{0%,9.8%{--stride:0deg}10%,23.8%{--stride:16deg}24%,40%{--stride:0deg}40.2%,53.8%{--stride:16deg}54%,100%{--stride:0deg}}
+@keyframes l-legs{0%,11.8%{--stride:0deg}12%,24.8%{--stride:16deg}25%,43%{--stride:0deg}43.2%,56.8%{--stride:16deg}57%,100%{--stride:0deg}}
+/* the bear waves (twice a loop); both lift a paw for the high-five */
+@keyframes bear-paw{0%,3%{transform:rotate(0)}4.5%{transform:rotate(-130deg)}5.5%{transform:rotate(-95deg)}6.5%{transform:rotate(-135deg)}7.5%{transform:rotate(-95deg)}8.5%{transform:rotate(-135deg)}9.5%{transform:rotate(-110deg)}10.5%,25%{transform:rotate(0)}28%{transform:rotate(-112deg)}30.5%{transform:rotate(-96deg)}32%,36%{transform:rotate(-104deg)}39%,77%{transform:rotate(0)}78.5%{transform:rotate(-130deg)}79.5%{transform:rotate(-95deg)}80.5%{transform:rotate(-135deg)}81.5%{transform:rotate(-95deg)}82.5%{transform:rotate(-135deg)}83.5%{transform:rotate(-110deg)}84.5%,100%{transform:rotate(0)}}
+@keyframes lion-paw{0%,25%{transform:rotate(0)}28%{transform:rotate(-112deg)}30.5%{transform:rotate(-96deg)}32%,36%{transform:rotate(-104deg)}39%,100%{transform:rotate(0)}}
+.critters .bear .rear{transform-box:view-box;transform-origin:13px 33px;animation:bear-rear 26s ease-in-out infinite}
+.critters .lion .rear{transform-box:view-box;transform-origin:14px 36px;animation:lion-rear 26s ease-in-out infinite}
+@keyframes bear-rear{0%,3%{transform:none}4.5%,9%{transform:rotate(-14deg)}10.5%,25%{transform:none}29%,36%{transform:translateX(19px) rotate(-26deg)}30.5%{transform:translateX(21px) rotate(-26deg)}39%,77%{transform:none}78.5%,83%{transform:rotate(-14deg)}84.5%,100%{transform:none}}
+@keyframes lion-rear{0%,25%{transform:none}29%,36%{transform:translateX(21px) rotate(-26deg)}30.5%{transform:translateX(23px) rotate(-26deg)}39%,100%{transform:none}}
+/* the lion roars once a loop, well away from the bear's waves */
+.critters .l-head{transform-box:view-box;transform-origin:38px 20px;animation:l-lift 26s ease-in-out infinite}
+.critters .jaw{transform-box:view-box;transform-origin:44px 18px;animation:l-jaw 26s ease-in-out infinite}
+@keyframes l-lift{0%,63%{transform:rotate(0)}65%,70%{transform:rotate(-12deg)}72%,100%{transform:rotate(0)}}
+@keyframes l-jaw{0%,63.5%{transform:rotate(0)}65.5%,69.5%{transform:rotate(32deg)}71.5%,100%{transform:rotate(0)}}
+.critters .roar{position:absolute;left:-30px;top:-30px;font:400 15px var(--f-title);letter-spacing:.06em;color:#8A5A2B;opacity:0;animation:l-roar 26s ease-out infinite}
+@keyframes l-roar{0%,64%{opacity:0;transform:translateY(4px) scale(.7) rotate(-6deg)}65.5%,70%{opacity:1;transform:translateY(-4px) scale(1) rotate(-6deg)}72%,100%{opacity:0;transform:translateY(-8px) scale(.9) rotate(-6deg)}}
+/* each one carries a little flag; the lettering counter-flips so it always reads the right way round */
+.critters .ft{font:400 5.4px var(--f-title);letter-spacing:.06em;text-anchor:middle;transform-box:fill-box;transform-origin:50% 50%}
+.critters .bear .ft{fill:#F3E9D8;animation:bear-face 26s ease-in-out infinite}
+.critters .lion .ft{fill:#1D3557;animation:lion-face 26s ease-in-out infinite}
+.critters .cloth{transform-box:fill-box;transform-origin:0 50%;animation:c-wave 1.1s ease-in-out infinite alternate}
+@keyframes c-wave{from{transform:skewY(-4deg) scaleX(.97)}to{transform:skewY(3deg) scaleX(1)}}
+/* a little burst where the paws meet */
+.critters .slap{position:absolute;left:calc(50% - 2px);bottom:40px;width:4px;height:4px}
+.critters .slap i{position:absolute;left:0;top:0;width:2.5px;height:10px;border-radius:2px;background:#C98A2E;transform-origin:50% 100%;opacity:0;animation:c-slap 26s ease-out infinite}
+.critters .slap i:nth-child(1){--r:-70deg}.critters .slap i:nth-child(2){--r:-35deg}.critters .slap i:nth-child(3){--r:0deg}.critters .slap i:nth-child(4){--r:35deg}.critters .slap i:nth-child(5){--r:70deg}
+@keyframes c-slap{0%,29.8%{opacity:0;transform:rotate(var(--r)) translateY(-6px) scaleY(.4)}30.6%{opacity:1;transform:rotate(var(--r)) translateY(-12px) scaleY(1)}33%,100%{opacity:0;transform:rotate(var(--r)) translateY(-22px) scaleY(.6)}}
 @media (max-width:600px){
   .scene{margin-bottom:28px}
   .screen{min-height:0;padding-block:56px}
@@ -216,7 +294,7 @@ footer{padding:10px 0 60px;text-align:center;font:400 11px var(--f-mono);letter-
   .clap .rows strong{font-size:20px}
   .ticket{grid-template-columns:78px 1fr}
 }
-@media (prefers-reduced-motion:reduce){.s-title .cut .ol{animation:none}.s-title .cut .o0{opacity:1}.bars .snow{animation:none}.bars.off{animation:none;opacity:0}.strip{animation:none}.belt{overflow-x:auto}.scene{opacity:1;transform:none;transition:none}.cat .tail{animation:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){.s-title .cut .hi.say{animation:none}.s-title .cut .ol{animation:none}.s-title .cut .o0{opacity:1}.bars .snow{animation:none}.bars.off{animation:none;opacity:0}.strip{animation:none}.belt{overflow-x:auto}.scene{opacity:1;transform:none;transition:none}.cat .tail{animation:none}html{scroll-behavior:auto}}
 
 /* ---- opening: a dim room and one warm spotlight on the camcorder ---- */
 #room{position:fixed;inset:0;z-index:10;cursor:pointer;overflow:hidden;
@@ -307,15 +385,53 @@ body.intro{overflow:hidden}
   <div class="screen">
     <span class="slate">Scene 01</span>
     <h1>Jess <span>Weng</span></h1>
-    <div class="cut" role="img" aria-label="Jess Weng"><img class="ol o0" src="photos/jess-outline-0.png" alt=""><img class="ol o1" src="photos/jess-outline-1.png" alt=""><img class="ol o2" src="photos/jess-outline-2.png" alt=""><img class="me" src="photos/jess-cutout-base.png" alt=""></div>
+    <div class="cut" role="img" aria-label="Jess Weng"><img class="ol o0" src="photos/jess-outline-0.png" alt=""><img class="ol o1" src="photos/jess-outline-1.png" alt=""><img class="ol o2" src="photos/jess-outline-2.png" alt=""><img class="me" src="photos/jess-cutout-base.png" alt=""><svg class="hi" viewBox="0 0 110 80" aria-hidden="true"><defs><filter id="chalk" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="5" result="w"/><feDisplacementMap in="SourceGraphic" in2="w" scale="3.4" result="d"/><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="2" result="g"/><feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.4 1.75" result="grain"/><feComposite in="d" in2="grain" operator="in"/></filter></defs><g filter="url(#chalk)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" style="--d:0.00s;--t:0.55s" d="M12 12C14 28 13 46 12 64C12.3 58 12.4 52 12.5 47C17 37 27 35 28.5 46 29.5 53 28.5 59 30 64"/><path class="dot" pathLength="1" style="--d:0.62s;--t:0.08s" d="M41.5 27.5l.6.4"/><path pathLength="1" style="--d:0.74s;--t:0.22s" d="M42 40C41.5 48 41.5 56 43 64"/><path pathLength="1" style="--d:1.02s;--t:0.26s" d="M60 10C58.5 24 58.5 36 59.5 49"/><path class="dot" pathLength="1" style="--d:1.34s;--t:0.08s" d="M59.6 61.5l.6.4"/><path class="spark" pathLength="1" style="--d:1.50s;--t:0.14s" d="M76 22l9-9"/><path class="spark" pathLength="1" style="--d:1.60s;--t:0.14s" d="M80 35l12-1"/><path class="spark" pathLength="1" style="--d:1.70s;--t:0.14s" d="M74 9l3-9"/><g transform="translate(1.6 -1.2) rotate(1.5 50 40)"><path class="ghost" pathLength="1" style="--d:0.04s;--t:0.55s" d="M12 12C14 28 13 46 12 64C12.3 58 12.4 52 12.5 47C17 37 27 35 28.5 46 29.5 53 28.5 59 30 64"/><path class="ghost" pathLength="1" style="--d:0.66s;--t:0.08s" d="M41.5 27.5l.6.4"/><path class="ghost" pathLength="1" style="--d:0.78s;--t:0.22s" d="M42 40C41.5 48 41.5 56 43 64"/><path class="ghost" pathLength="1" style="--d:1.06s;--t:0.26s" d="M60 10C58.5 24 58.5 36 59.5 49"/><path class="ghost" pathLength="1" style="--d:1.38s;--t:0.08s" d="M59.6 61.5l.6.4"/><path class="ghost" pathLength="1" style="--d:1.54s;--t:0.14s" d="M76 22l9-9"/><path class="ghost" pathLength="1" style="--d:1.64s;--t:0.14s" d="M80 35l12-1"/><path class="ghost" pathLength="1" style="--d:1.74s;--t:0.14s" d="M74 9l3-9"/></g></g></svg></div>
   </div>
 </section>
 
 <section class="scene s-role" aria-label="LangChain">
   <div class="screen">
     <span class="slate">Scene 02</span>
+    <!-- a bear (Brown) and a lion (Columbia) wander in from either side, high-five in the middle, then head back -->
+    <div class="critters" aria-hidden="true">
+      <span class="bear"><svg viewBox="0 0 48 34"><g class="rear">
+        <g class="flag" transform="translate(17 17) scale(1.4) translate(-17 -17)"><path d="M17 17V-11" stroke="#5A4030" stroke-width="1.2" stroke-linecap="round"/><g class="cloth"><path d="M17.4 -11H41l-1.6 4.2L41 -2.6H17.4Z" fill="#4E3629"/><text class="ft" x="28.6" y="-4.9">BROWN</text></g></g>
+                <g class="leg a"><rect x="11" y="23" width="5" height="10" rx="2.5" fill="var(--bear)"/></g>
+        <g class="leg b"><rect x="29" y="23" width="5" height="10" rx="2.5" fill="var(--bear)"/></g>
+        <circle cx="7" cy="16" r="2.4" fill="var(--bear)"/>
+        <ellipse cx="22" cy="19" rx="15" ry="9" fill="var(--bear)"/>
+        <circle cx="34" cy="6.5" r="2.8" fill="var(--bear)"/><circle cx="34" cy="6.5" r="1.3" fill="var(--bear-light)"/>
+        <circle cx="37" cy="12.5" r="7" fill="var(--bear)"/>
+        <ellipse cx="43.2" cy="14.6" rx="3.6" ry="2.7" fill="var(--bear-light)"/>
+        <circle cx="46.3" cy="13.9" r="1.2" fill="var(--bear-dark)"/>
+        <circle cx="39" cy="10.8" r="1" fill="var(--bear-dark)"/>
+        <g class="leg b"><rect x="14" y="23" width="5" height="10" rx="2.5" fill="var(--bear)" style="filter:brightness(1.12)"/></g>
+        <g class="five"><g class="leg a"><rect x="32" y="23" width="5" height="10" rx="2.5" fill="var(--bear)" style="filter:brightness(1.12)"/><ellipse cx="34.5" cy="31" rx="1.7" ry="1.4" fill="var(--bear-light)"/></g></g>
+      </g></svg></span>
+      <span class="lion"><span class="roar">Roar!</span><svg viewBox="0 0 56 38"><g class="rear">
+        <g class="flag" transform="translate(18 18) scale(1.4) translate(-18 -18)"><path d="M18 18V-12" stroke="#5A4030" stroke-width="1.2" stroke-linecap="round"/><g class="cloth"><path d="M18.4 -12H48.5l-1.6 4.2L48.5 -3.6H18.4Z" fill="#B9D9EB"/><text class="ft" x="32.8" y="-5.9">COLUMBIA</text></g></g>
+                <g class="tail"><path d="M9 20C5 18 3 15 3 11" fill="none" stroke="var(--lion)" stroke-width="2" stroke-linecap="round"/><circle cx="3" cy="10" r="2.4" fill="var(--mane)"/></g>
+        <g class="leg a"><rect x="12" y="25" width="5" height="11" rx="2.5" fill="var(--lion)" style="filter:brightness(.9)"/></g>
+        <g class="leg b"><rect x="31" y="25" width="5" height="11" rx="2.5" fill="var(--lion)" style="filter:brightness(.9)"/></g>
+        <ellipse cx="24" cy="21" rx="15" ry="8.5" fill="var(--lion)"/>
+        <g class="leg b"><rect x="15" y="25" width="5" height="11" rx="2.5" fill="var(--lion)"/></g>
+        <g class="l-head">
+        <g fill="var(--mane)"><circle cx="40" cy="15" r="10"/><circle cx="33" cy="10" r="4"/><circle cx="33" cy="20" r="4"/><circle cx="40" cy="5.5" r="3.6"/><circle cx="40" cy="24.5" r="3.6"/><circle cx="46" cy="7.5" r="3.4"/><circle cx="46" cy="22.5" r="3.4"/></g>
+        <circle cx="39" cy="9" r="2" fill="var(--lion)"/>
+        <circle cx="43" cy="15" r="6.5" fill="var(--lion)"/>
+        <ellipse cx="47.5" cy="19.6" rx="2.6" ry="1.8" fill="#3A1F12"/>
+        <g class="jaw"><ellipse cx="47" cy="18.8" rx="3.1" ry="1.6" fill="var(--lion-light)"/></g>
+        <ellipse cx="47.6" cy="16.4" rx="3.1" ry="2.3" fill="var(--lion-light)"/>
+        <circle cx="50.3" cy="15.6" r="1.1" fill="#3A1F12"/>
+        <circle cx="44.2" cy="13.2" r=".95" fill="#3A1F12"/>
+        </g>
+      
+        <g class="five"><g class="leg a"><rect x="34" y="25" width="5" height="11" rx="2.5" fill="var(--lion)"/><ellipse cx="36.5" cy="34" rx="1.7" ry="1.4" fill="var(--lion-light)"/></g></g>
+      </g></svg></span>
+      <span class="slap"><i></i><i></i><i></i><i></i><i></i></span>
+    </div>
     <div class="clap">
-      <div class="stick"></div>
+      <div class="stick"></div><div class="base"></div>
       <div class="rows">
         <div class="full"><small>Production</small><strong>LangChain</strong></div>
         <div><small>Role</small><strong>Education Engineer</strong></div>
@@ -447,7 +563,7 @@ function roll(){
   if(started)return;started=true;
   room.classList.add("rolling");
   setTimeout(()=>room.classList.add("dark"),reduce?0:650);
-  setTimeout(()=>{room.classList.add("gone");document.body.classList.remove("intro");scrollTo(0,0)},reduce?0:1400);
+  setTimeout(()=>{room.classList.add("gone");document.body.classList.remove("intro");scrollTo(0,0);dispatchEvent(new Event("filmstart"))},reduce?0:1400);
 }
 if(reduce)document.getElementById("boil")?.remove();   // hand-drawn "line boil" on the camcorder, off for reduced motion
 room.addEventListener("click",roll);
@@ -459,6 +575,34 @@ document.getElementById("replay").addEventListener("click",()=>{started=false;ro
 const tc=document.getElementById("tc"),t0=performance.now();
 setInterval(()=>{const f=Math.floor((performance.now()-t0)/1000*24),p=n=>String(n).padStart(2,"0");tc.textContent=`${p(Math.floor(f/86400))}:${p(Math.floor(f/1440)%60)}:${p(Math.floor(f/24)%60)}:${p(f%24)}`},1000/24);
 
+// "hi!": pops up above her head at random intervals while the title card is on screen
+const hiEl=document.querySelector(".s-title .hi"),titleScene=document.querySelector(".s-title");
+let titleVisible=false;
+new IntersectionObserver(([e])=>titleVisible=e.isIntersecting,{threshold:.4}).observe(titleScene);
+function sayHi(){
+  if(titleVisible&&!document.body.classList.contains("intro")&&!document.hidden){
+    hiEl.classList.remove("say","bye");void hiEl.getBBox();hiEl.classList.add("say");
+    setTimeout(()=>hiEl.classList.add("bye"),2400);
+    setTimeout(()=>hiEl.classList.remove("say","bye"),2900);
+  }
+  setTimeout(sayHi,4200+Math.random()*3300);
+}
+let hiStarted=false;
+const startHi=()=>{if(hiStarted)return;hiStarted=true;titleVisible=true;setTimeout(sayHi,450)};
+addEventListener("filmstart",startHi);
+// clapperboard: hover (or tap on phones) snaps it shut
+const clap=document.querySelector(".clap");
+if(clap){const snap=()=>{if(clap.classList.contains("snap"))return;clap.classList.add("snap");
+    if(!matchMedia("(prefers-reduced-motion: reduce)").matches){const b=document.createElement("span");b.className="bird";b.innerHTML='<img src="photos/bird.png" alt="">';clap.append(b);setTimeout(()=>b.remove(),2900)}};
+  clap.addEventListener("animationend",e=>{if(e.animationName==="clap-snap")clap.classList.remove("snap")});
+  // hover only counts once the whole scene is on screen and the page has stopped scrolling,
+  // so scrolling past with the cursor in the middle doesn't set it off
+  const scene=clap.closest(".scene");let armed=true,lastScroll=0;
+  addEventListener("scroll",()=>lastScroll=performance.now(),{passive:true});
+  const inFrame=()=>{const r=scene.getBoundingClientRect();return r.top>=-2&&r.bottom<=innerHeight+2};
+  const tryHover=()=>{if(armed&&inFrame()&&performance.now()-lastScroll>250){armed=false;snap()}};
+  clap.addEventListener("mouseenter",tryHover);clap.addEventListener("mousemove",tryHover);
+  clap.addEventListener("mouseleave",()=>{armed=true;clap.classList.remove("snap")});clap.addEventListener("click",snap)}
 // scenes fade in as they reach the screen
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll(".scene:not([hidden])").forEach(s=>io.observe(s));
@@ -488,7 +632,7 @@ document.querySelectorAll(".thumb").forEach(b=>{
   const id=b.dataset.yt;b.style.backgroundImage=`url(https://i.ytimg.com/vi/${id}/hqdefault.jpg)`;
   b.addEventListener("click",()=>{b.closest(".belt").classList.add("stopped");const f=document.createElement("iframe");f.src=`https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;f.title=b.getAttribute("aria-label");f.allow="autoplay; encrypted-media; picture-in-picture";f.allowFullscreen=true;b.replaceWith(f)});
 });
-window.movieGo=()=>{room.classList.add("gone");document.body.classList.remove("intro")};   // handy for testing
+window.movieGo=()=>{room.classList.add("gone");document.body.classList.remove("intro");dispatchEvent(new Event("filmstart"))};   // handy for testing
 })();
 </script>
 </body>
