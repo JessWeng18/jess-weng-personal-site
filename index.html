@@ -62,9 +62,10 @@ img{max-width:100%}
   .s-title .cut .hi{left:73%;top:2%}
   .s-title .cut{filter:none}
   .scene{opacity:1;transform:none;transition:none}
-  .s-title .screen{align-items:center;text-align:center;justify-content:flex-start;padding:134px 20px 0;min-height:min(78vh,580px)}
+  .s-title .screen{align-items:center;text-align:center;justify-content:flex-start;padding:134px 20px 0;min-height:0}
   .s-title h1{font-size:clamp(76px,23vw,112px)}
-  .s-title .cut{left:50%;right:auto;transform:translateX(-50%);height:auto;width:80%;max-width:none}
+  .s-title .cut{position:relative;left:auto;right:auto;bottom:auto;transform:none;height:auto;width:90%;max-width:none;margin-top:64px}
+  .screen{min-height:0}
 }
 .cat .tail{transform-box:view-box;transform-origin:44px 82px;animation:tail 3.6s ease-in-out infinite}
 @keyframes tail{50%{transform:rotate(-8deg)}}
@@ -309,6 +310,7 @@ footer{padding:10px 0 60px;text-align:center;font:400 11px var(--f-mono);letter-
   .critters .bear{left:var(--bear-home)}.critters .lion{left:var(--lion-home)}
   .critters .bear svg{animation:none}.critters .lion svg{animation:none;transform:scaleX(-1)}
   .critters .leg,.critters .cloth,.critters .ft,.critters .slap i,.critters .lion .five,.critters .lion .rear{animation:none}
+  .critters .bear .plain,.critters .bear .mirror,.critters .lion .plain,.critters .lion .mirror{animation:none}
   .critters .bear .mirror,.critters .lion .plain{opacity:0}
   .critters .bear .five{animation:m-wave 18s ease-in-out infinite}
   .critters .bear .rear{animation:m-sit 18s ease-in-out infinite}
@@ -317,7 +319,6 @@ footer{padding:10px 0 60px;text-align:center;font:400 11px var(--f-mono);letter-
   .critters .jaw{animation:m-jaw 18s ease-in-out infinite}
   .critters .roar{animation:m-roar 18s ease-out infinite}
   .screen{min-height:0;padding-block:56px}
-  .s-title .screen{min-height:min(86vh,640px)}
   #room svg.cam{width:92vw;bottom:10%}
   .s-courses .screen{padding-top:80px}
   .posters{gap:40px;margin-top:10px}
@@ -353,6 +354,7 @@ svg.cam{transition:transform 1.2s cubic-bezier(.5,0,.2,1),filter .6s}
 
 /* ---- the menu: a viewfinder overlay ---- */
 .endcard{position:relative;max-width:1100px;margin:0 auto 56px;height:min(88vh,760px);padding:clamp(14px,3vw,30px);border-radius:6px;background:radial-gradient(ellipse at center,rgb(10 14 19/.45),rgb(10 14 19/.9) 85%),linear-gradient(rgb(10 14 19/.58),rgb(10 14 19/.58)),url(photos/interrupt-nyc-stage.jpg) center 30%/cover,#0A0E13;overflow:hidden;color:#F2F4F6;box-shadow:0 14px 30px rgb(30 20 10/.18)}
+@media (max-width:759px){.endcard{height:620px}.reel{width:min(100%,460px)}}
 .endcard::before{content:"";position:absolute;inset:0;background:inherit;filter:blur(3px);transform:scale(1.03);z-index:0}
 .endcard .vf{z-index:1}
 .endcard .menu-inner{text-shadow:0 2px 14px rgb(0 0 0/.6)}
