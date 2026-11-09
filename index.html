@@ -15,8 +15,8 @@
 :root{--paper:#F6F1E7;--ink:#2B2420;--ink-soft:#6E6156;--film:#1C1916;--cream:#FBF7EE;--red:#8E2B2B;--gold:#D9B45A;
   --f-title:"Bebas Neue",Impact,sans-serif;--f-mono:"Courier Prime","Courier New",monospace;--f-body:"EB Garamond",Georgia,serif}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-snap-type:y proximity}
-/* each scene settles neatly in the middle of the screen; on laptops it always snaps, on phones only when you're close */
+html{scroll-behavior:smooth}
+/* laptops: each scene settles neatly in the middle of the screen. phones just scroll freely */
 .scene,.endcard{scroll-snap-align:center;scroll-margin-block:16px}
 @media (min-width:760px) and (hover:hover){html{scroll-snap-type:y mandatory}}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 18px/1.6 var(--f-body);padding:0 16px}
@@ -57,6 +57,7 @@ img{max-width:100%}
 @keyframes boil{0%{opacity:1}33.3%,100%{opacity:0}}
 .s-title .cut{position:absolute;right:3%;bottom:0;height:min(74%,calc(50vw * 1156 / 1191));aspect-ratio:1191/1156;max-width:50%;filter:drop-shadow(0 10px 24px rgb(0 0 0/.35))}
 @media (max-width:759px){
+  .s-title .cut .hi{left:73%;top:-5%}
   .s-title .screen{align-items:center;text-align:center;justify-content:flex-start;padding:134px 20px 0;min-height:min(78vh,580px)}
   .s-title h1{font-size:clamp(76px,23vw,112px)}
   .s-title .cut{left:50%;right:auto;transform:translateX(-50%);height:auto;width:80%;max-width:none}
@@ -154,10 +155,10 @@ img{max-width:100%}
 .swipe-note{display:none;margin:.4rem 0 0;text-align:center;font:400 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
 /* touch screens: no auto-scroll, just a swipeable row that snaps to each video */
 @media (hover:none){
-  .belt{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-inline:clamp(28px,5vw,64px)}
+  .belt{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-inline:clamp(28px,5vw,64px)}
   .belt::-webkit-scrollbar{display:none}
   .strip{animation:none;width:auto}
-  .clip{scroll-snap-align:center;flex-basis:min(68vw,320px)}
+  .clip{flex-basis:min(68vw,320px)}
   .clip[aria-hidden="true"]{display:none}
   .swipe-note{display:block}
 }
@@ -236,7 +237,7 @@ footer{padding:10px 0 60px;text-align:center;font:400 11px var(--f-mono);letter-
 .reel-nav button{width:36px;height:36px;border:1px solid #C9BFAD;border-radius:50%;background:none;color:#EDE6DA;cursor:pointer;font-size:12px}
 /* bear + lion: walk in, high-five in the middle, walk back out (14s loop) */
 @property --stride{syntax:"<angle>";inherits:true;initial-value:0deg}
-.critters{position:absolute;left:24px;right:24px;bottom:14px;height:62px;pointer-events:none;
+.critters{position:absolute;left:24px;right:24px;bottom:14px;height:62px;pointer-events:none;--bear-home:calc(33% - 36px);--lion-home:calc(67% - 48px);
   --bear:#7A5438;--bear-light:#C9A27E;--bear-dark:#3A271B;--lion:#C9964F;--lion-light:#EBCD97;--mane:#8A5A2B}
 .critters::after{content:"";position:absolute;left:0;right:0;bottom:-2px;border-bottom:2px dashed rgb(74 54 40/.22)}
 .critters svg{display:block;width:100%;height:100%;overflow:visible}
@@ -252,8 +253,8 @@ footer{padding:10px 0 60px;text-align:center;font:400 11px var(--f-mono);letter-
 .critters .tail{transform-box:view-box;transform-origin:9px 20px;animation:c-tail 1.6s ease-in-out infinite alternate}
 @keyframes c-tail{from{transform:rotate(-8deg)}to{transform:rotate(10deg)}}
 /* each starts a third of the way in from its side, strolls to the middle, high-fives, strolls back */
-@keyframes bear-walk{0%,10%{left:calc(33% - 36px)}24%,40%{left:calc(50% - 82px)}54%,100%{left:calc(33% - 36px)}}
-@keyframes lion-walk{0%,12%{left:calc(67% - 48px)}25%,43%{left:calc(50% + 8px)}57%,100%{left:calc(67% - 48px)}}
+@keyframes bear-walk{0%,10%{left:var(--bear-home)}24%,40%{left:calc(50% - 82px)}54%,100%{left:var(--bear-home)}}
+@keyframes lion-walk{0%,12%{left:var(--lion-home)}25%,43%{left:calc(50% + 8px)}57%,100%{left:var(--lion-home)}}
 @keyframes bear-face{0%,40%{transform:scaleX(1)}42.5%,54%{transform:scaleX(-1)}56.5%,62%{transform:scaleX(1)}64%,67.5%{transform:scaleX(-1)}69.5%,100%{transform:scaleX(1)}}
 @keyframes lion-face{0%,41%{transform:scaleX(-1)}43.5%,57%{transform:scaleX(1)}59.5%,88%{transform:scaleX(-1)}90%,93%{transform:scaleX(1)}95%,100%{transform:scaleX(-1)}}
 @keyframes c-legs{0%,9.8%{--stride:0deg}10%,23.8%{--stride:16deg}24%,40%{--stride:0deg}40.2%,53.8%{--stride:16deg}54%,100%{--stride:0deg}}
@@ -270,7 +271,7 @@ footer{padding:10px 0 60px;text-align:center;font:400 11px var(--f-mono);letter-
 .critters .jaw{transform-box:view-box;transform-origin:44px 18px;animation:l-jaw 26s ease-in-out infinite}
 @keyframes l-lift{0%,63%{transform:rotate(0)}65%,70%{transform:rotate(-12deg)}72%,100%{transform:rotate(0)}}
 @keyframes l-jaw{0%,63.5%{transform:rotate(0)}65.5%,69.5%{transform:rotate(32deg)}71.5%,100%{transform:rotate(0)}}
-.critters .roar{position:absolute;left:-30px;top:-30px;font:400 15px var(--f-title);letter-spacing:.06em;color:#8A5A2B;opacity:0;animation:l-roar 26s ease-out infinite}
+.critters .roar{position:absolute;left:-46px;top:-4px;font:400 15px var(--f-title);letter-spacing:.06em;color:#8A5A2B;opacity:0;animation:l-roar 26s ease-out infinite}
 @keyframes l-roar{0%,64%{opacity:0;transform:translateY(4px) scale(.7) rotate(-6deg)}65.5%,70%{opacity:1;transform:translateY(-4px) scale(1) rotate(-6deg)}72%,100%{opacity:0;transform:translateY(-8px) scale(.9) rotate(-6deg)}}
 /* each one carries a little flag; the lettering counter-flips so it always reads the right way round */
 .critters .ft{font:400 5.4px var(--f-title);letter-spacing:.06em;text-anchor:middle;transform-box:fill-box;transform-origin:50% 50%}
@@ -285,6 +286,8 @@ footer{padding:10px 0 60px;text-align:center;font:400 11px var(--f-mono);letter-
 @keyframes c-slap{0%,29.8%{opacity:0;transform:rotate(var(--r)) translateY(-6px) scaleY(.4)}30.6%{opacity:1;transform:rotate(var(--r)) translateY(-12px) scaleY(1)}33%,100%{opacity:0;transform:rotate(var(--r)) translateY(-22px) scaleY(.6)}}
 @media (max-width:600px){
   .scene{margin-bottom:28px}
+  .s-role .screen{padding-bottom:136px}  /* room for the animals and their flags under the clapper */
+  .critters{left:10px;right:10px;--bear-home:0px;--lion-home:calc(100% - 84px)}
   .screen{min-height:0;padding-block:56px}
   .s-title .screen{min-height:min(86vh,640px)}
   #room svg.cam{width:92vw;bottom:10%}
@@ -294,7 +297,7 @@ footer{padding:10px 0 60px;text-align:center;font:400 11px var(--f-mono);letter-
   .clap .rows strong{font-size:20px}
   .ticket{grid-template-columns:78px 1fr}
 }
-@media (prefers-reduced-motion:reduce){.s-title .cut .hi.say{animation:none}.s-title .cut .ol{animation:none}.s-title .cut .o0{opacity:1}.bars .snow{animation:none}.bars.off{animation:none;opacity:0}.strip{animation:none}.belt{overflow-x:auto}.scene{opacity:1;transform:none;transition:none}.cat .tail{animation:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){.clap.snap,.clap.snap .stick{animation:none}.critters *{animation:none!important}.critters .bear{left:var(--bear-home)}.critters .lion{left:var(--lion-home)}.critters .lion svg,.critters .lion .ft{transform:scaleX(-1)}.s-title .cut .hi.say{animation:none}.s-title .cut .ol{animation:none}.s-title .cut .o0{opacity:1}.bars .snow{animation:none}.bars.off{animation:none;opacity:0}.strip{animation:none}.belt{overflow-x:auto}.scene{opacity:1;transform:none;transition:none}.cat .tail{animation:none}html{scroll-behavior:auto}}
 
 /* ---- opening: a dim room and one warm spotlight on the camcorder ---- */
 #room{position:fixed;inset:0;z-index:10;cursor:pointer;overflow:hidden;
